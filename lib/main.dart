@@ -6,7 +6,7 @@ void main() {
 }
 
 class DailyQuotesApp extends StatelessWidget {
-  const DailyQuotesApp({super.key});
+  const DailyQuotesApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class DailyQuotesApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -62,8 +62,108 @@ class _HomeScreenState extends State<HomeScreen> {
         subtitle: 'We\'ve picked some quotes for You',
       ),
       body: ListView(
-        padding: EdgeInsets.only(top: 200, left: 20, right: 20),
+        padding: EdgeInsets.only(top: 200, left: 20, right: 20, bottom: 100),
         children: [
+          // First Date with Girls Section Header
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Row(
+              children: [
+                Container(
+                  height: 30,
+                  width: 5,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFF6B9E),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  'First Date with Her',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF333333),
+                  ),
+                ),
+                Spacer(),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GirlsFirstLinesScreen(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'See All',
+                    style: TextStyle(
+                      color: Color(0xFFFF6B9E),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // First Lines Horizontal Scroll
+          SizedBox(
+            height: 140,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                FirstLineCard(
+                  category: "Genuine",
+                  line:
+                      "I noticed you like [something you observed]. What got you interested in that?",
+                  color: Color(0xFFFF6B9E),
+                ),
+                SizedBox(width: 16),
+                FirstLineCard(
+                  category: "Playful",
+                  line: "If your life was a movie, what would the title be?",
+                  color: Color(0xFF9E8FFF),
+                ),
+                SizedBox(width: 16),
+                FirstLineCard(
+                  category: "Thoughtful",
+                  line:
+                      "What's something small that always makes your day better?",
+                  color: Color(0xFF5ED584),
+                ),
+              ],
+            ),
+          ),
+
+          // Regular Quotes Header
+          Padding(
+            padding: const EdgeInsets.only(top: 25, bottom: 16),
+            child: Row(
+              children: [
+                Container(
+                  height: 30,
+                  width: 5,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF5EAFC0),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  'Inspiring Quotes',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF333333),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Regular quotes list
           PointedQuoteCard(
             title: 'A Man Called Otto',
             author: 'Movie',
@@ -98,7 +198,140 @@ class _HomeScreenState extends State<HomeScreen> {
             color: const Color(0xFFB57470),
             onTap: () {},
           ),
-          const SizedBox(height: 100), // Bottom padding for navigation bar
+        ],
+      ),
+      bottomNavigationBar: AnimatedBottomNavigationBar(
+        selectedIndex: _selectedIndex,
+        onItemSelected: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => GirlsFirstLinesScreen()),
+          );
+        },
+        backgroundColor: Color(0xFFFF6B9E),
+        child: Icon(Icons.favorite, color: Colors.white),
+      ),
+    );
+  }
+}
+
+class GirlsFirstLinesScreen extends StatefulWidget {
+  @override
+  State<GirlsFirstLinesScreen> createState() => _GirlsFirstLinesScreenState();
+}
+
+class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
+  int _selectedIndex = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: CurvedAppBar(
+        title: 'First Lines for Her',
+        showBackButton: true,
+        height: 130,
+        subtitle: 'Conversation starters that connect',
+      ),
+      body: ListView(
+        padding: EdgeInsets.only(top: 150, left: 20, right: 20, bottom: 100),
+        children: [
+          // Categories
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CategoryChip(
+                  label: 'Genuine',
+                  color: Color(0xFFFF6B9E),
+                  isSelected: true,
+                ),
+                CategoryChip(
+                  label: 'Playful',
+                  color: Color(0xFF9E8FFF),
+                  isSelected: false,
+                ),
+                CategoryChip(
+                  label: 'Deep',
+                  color: Color(0xFF5ED584),
+                  isSelected: false,
+                ),
+                CategoryChip(
+                  label: 'Funny',
+                  color: Color(0xFFF9BA51),
+                  isSelected: false,
+                ),
+              ],
+            ),
+          ),
+
+          // First Line Cards
+          FirstLineCategoryCard(
+            title: "Coffee Shop",
+            subtitle: "Casual and comfortable setting",
+            icon: Icons.coffee_rounded,
+            color: Color(0xFFFF6B9E),
+            lines: [
+              "I've been trying to decide between trying the lavender latte or the caramel one. Which would you recommend?",
+              "I'm curious - what's your go-to coffee order that says something about your personality?",
+              "That book you're reading looks interesting. Is it as good as it seems?",
+              "I love this café's playlist. Do you have a favorite song that's been on repeat for you lately?",
+              "I noticed your [bag/shoes/etc.]. I've been looking for something like that. Where did you find it?",
+            ],
+          ),
+          SizedBox(height: 20),
+
+          FirstLineCategoryCard(
+            title: "Dinner Date",
+            subtitle: "For a restaurant setting",
+            icon: Icons.restaurant_rounded,
+            color: Color(0xFF9E8FFF),
+            lines: [
+              "If you could eat one cuisine for the rest of your life, which would you choose?",
+              "What's the most memorable meal you've ever had and what made it special?",
+              "I'm always curious about food traditions. Does your family have any special recipes?",
+              "Are you more of a 'follow the recipe exactly' or a 'throw in whatever looks good' kind of cook?",
+              "What's your comfort food when you've had a long day?",
+            ],
+          ),
+          SizedBox(height: 20),
+
+          FirstLineCategoryCard(
+            title: "Art Gallery",
+            subtitle: "For the creative connection",
+            icon: Icons.palette_rounded,
+            color: Color(0xFF5ED584),
+            lines: [
+              "Which piece here speaks to you most? I'd love to see it through your eyes.",
+              "If you could have any artist, past or present, create something for your home, who would you choose?",
+              "Do you have a creative outlet that helps you express yourself?",
+              "What kind of art did you connect with first as a kid?",
+              "I love how art reveals what we're drawn to. What colors or styles do you find yourself gravitating toward?",
+            ],
+          ),
+          SizedBox(height: 20),
+
+          FirstLineCategoryCard(
+            title: "Walk in the Park",
+            subtitle: "Casual outdoor conversation",
+            icon: Icons.park_rounded,
+            color: Color(0xFFF9BA51),
+            lines: [
+              "What's your favorite season and what makes it special for you?",
+              "Are you a mountains, beach, or city person at heart?",
+              "If you could live anywhere with perfect weather year-round, where would it be?",
+              "Do you have a favorite spot in nature that feels like 'your place'?",
+              "What outdoor activity makes you feel most alive?",
+            ],
+          ),
         ],
       ),
       bottomNavigationBar: AnimatedBottomNavigationBar(
@@ -113,8 +346,54 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+class CategoryChip extends StatelessWidget {
+  final String label;
+  final Color color;
+  final bool isSelected;
+
+  const CategoryChip({
+    Key? key,
+    required this.label,
+    required this.color,
+    required this.isSelected,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: isSelected ? color : Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: isSelected ? Colors.transparent : color.withOpacity(0.3),
+          width: 1.5,
+        ),
+        boxShadow:
+            isSelected
+                ? [
+                  BoxShadow(
+                    color: color.withOpacity(0.3),
+                    blurRadius: 8,
+                    offset: Offset(0, 2),
+                  ),
+                ]
+                : [],
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: isSelected ? Colors.white : color,
+          fontWeight: FontWeight.bold,
+          fontSize: 13,
+        ),
+      ),
+    );
+  }
+}
+
 class QuoteDetailScreen extends StatefulWidget {
-  const QuoteDetailScreen({super.key});
+  const QuoteDetailScreen({Key? key}) : super(key: key);
 
   @override
   State<QuoteDetailScreen> createState() => _QuoteDetailScreenState();
@@ -134,7 +413,7 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
         showBackButton: true,
       ),
       body: ListView(
-        padding: EdgeInsets.only(top: 140, left: 20, right: 20),
+        padding: EdgeInsets.only(top: 140, left: 20, right: 20, bottom: 100),
         children: [
           PointedQuoteCard(
             title: 'Pursuit of Happiness',
@@ -157,7 +436,6 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
             color: const Color(0xFFB57470),
             onTap: () {},
           ),
-          const SizedBox(height: 100), // Bottom padding for navigation bar
         ],
       ),
       bottomNavigationBar: AnimatedBottomNavigationBar(
@@ -172,6 +450,238 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
   }
 }
 
+class FirstLineCard extends StatelessWidget {
+  final String category;
+  final String line;
+  final Color color;
+
+  const FirstLineCard({
+    Key? key,
+    required this.category,
+    required this.line,
+    required this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 280,
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              category,
+              style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+            ),
+          ),
+          SizedBox(height: 12),
+          Text(
+            line,
+            style: TextStyle(
+              fontSize: 16,
+              height: 1.4,
+              color: Colors.grey.shade800,
+            ),
+          ),
+          Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Icon(Icons.favorite_border, size: 20, color: color),
+              SizedBox(width: 15),
+              Icon(Icons.copy_outlined, size: 20, color: color),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class FirstLineCategoryCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Color color;
+  final List<String> lines;
+
+  const FirstLineCategoryCard({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.color,
+    required this.lines,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.15),
+            blurRadius: 20,
+            offset: Offset(0, 5),
+            spreadRadius: 0,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Card Header
+          Container(
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            child: Row(
+              children: [
+                Container(
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(icon, color: Colors.white, size: 24),
+                ),
+                SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.8),
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          // Lines List
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'FIRST LINES TO TRY',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                    letterSpacing: 1,
+                  ),
+                ),
+                SizedBox(height: 16),
+                ...List.generate(lines.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 26,
+                          width: 26,
+                          decoration: BoxDecoration(
+                            color: color.withOpacity(0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.chat_bubble_outline,
+                            color: color,
+                            size: 14,
+                          ),
+                        ),
+                        SizedBox(width: 14),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                lines[index],
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.grey.shade800,
+                                  height: 1.4,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.favorite_border,
+                                    size: 16,
+                                    color: Colors.grey.shade400,
+                                  ),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    '${24 + index * 7}',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey.shade500,
+                                    ),
+                                  ),
+                                  SizedBox(width: 16),
+                                  Icon(
+                                    Icons.copy_outlined,
+                                    size: 16,
+                                    color: Colors.grey.shade400,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String? subtitle;
@@ -179,12 +689,12 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
 
   const CurvedAppBar({
-    super.key,
+    Key? key,
     required this.title,
     this.subtitle,
     this.showBackButton = false,
     required this.height,
-  });
+  }) : super(key: key);
 
   @override
   Size get preferredSize => Size.fromHeight(height);
@@ -195,7 +705,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
       clipper: CurvedBottomClipper(),
       child: Container(
         height: height,
-        color: Colors.red,
+        color: Colors.white,
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
@@ -215,7 +725,6 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
                         Text(
                           title,
                           style: const TextStyle(
-                            color: Colors.white,
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
@@ -228,8 +737,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
                         const SizedBox(height: 10),
                         Text(
                           title,
-                          style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.8),
+                          style: const TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
                           ),
@@ -244,9 +752,9 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     child: Text(
                       subtitle!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
-                        color: Colors.white.withValues(alpha: 0.8),
+                        color: Colors.black54,
                       ),
                     ),
                   ),
@@ -410,7 +918,7 @@ class PointedQuoteDetailCard extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white.withValues(alpha: 0.2),
+                    backgroundColor: Colors.white.withOpacity(0.2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -427,7 +935,7 @@ class PointedQuoteDetailCard extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white.withValues(alpha: 0.2),
+                    backgroundColor: Colors.white.withOpacity(0.2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -506,9 +1014,9 @@ class AnimatedBottomNavigationBar extends StatelessWidget {
       activeColor: Color(0xFF5EAFC0),
     ),
     NavigationItemData(
-      icon: Icons.search_rounded,
-      label: 'Discover',
-      activeColor: Color(0xFFF9BA51),
+      icon: Icons.favorite_rounded,
+      label: 'First Lines',
+      activeColor: Color(0xFFFF6B9E),
     ),
     NavigationItemData(
       icon: Icons.bookmark_rounded,
@@ -534,7 +1042,7 @@ class AnimatedBottomNavigationBar extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
+            color: Colors.black.withOpacity(0.06),
             blurRadius: 12,
             offset: Offset(0, -2),
             spreadRadius: 1,
@@ -597,9 +1105,7 @@ class NavigationBarItem extends StatelessWidget {
               width: isSelected ? 40 : 36,
               decoration: BoxDecoration(
                 color:
-                    isSelected
-                        ? color.withValues(alpha: 0.15)
-                        : Colors.transparent,
+                    isSelected ? color.withOpacity(0.15) : Colors.transparent,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Icon(
