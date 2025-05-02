@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "311959562953",
+    "project_id": "flirt-lines",
+    "storage_bucket": "flirt-lines.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311959562953:android:990997ec12b78dc33bfb18",
+        "android_client_info": {
+          "package_name": "com.example.pickuplines"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk_3DiTWp8EaQJ5NPRaQgj4fyyoLcjvZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
