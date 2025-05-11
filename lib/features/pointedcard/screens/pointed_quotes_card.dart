@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pickuplines/core/widgets/curved/pointer_card_painter.dart';
-import 'package:pickuplines/main.dart';
 
 class PointedQuoteCard extends StatelessWidget {
   final String title;

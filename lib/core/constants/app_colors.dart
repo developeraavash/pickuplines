@@ -16,7 +16,7 @@ class AppColors {
 
   // Text Colors
   static const Color textPrimary = Color(0xFF333333);
-  static const Color textSecondary = Color(0xFF666666);
+  static const Color textSecondary = Colors.white70;
   static const Color textWhite = Colors.white;
 
   // Background Colors
@@ -29,4 +29,10 @@ class AppColors {
   static const Color success = Color(0xFF4CAF50);
   static const Color error = Color(0xFFF44336);
   static const Color warning = Color(0xFFFFC107);
+
+  // Additional Colors
+  static const Color blue = Color(0xFF5DB7DE);
+  static const Color yellow = Color(0xFFFFD36E);
+  static const Color red = Color(0xFFE25C4A);
+  static const Color darkRed = Color(0xFFB84A62);
 }

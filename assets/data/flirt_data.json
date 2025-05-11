@@ -1,0 +1,80 @@
+{
+  "flirt_content": {
+    "playful": [
+      {
+        "id": 1,
+        "line": "Are you a magician? Because whenever I look at you, everyone else disappears.",
+        "category": "playful",
+        "tags": ["magic", "attention"]
+      },
+      {
+        "id": 2,
+        "line": "Do you have a name, or can I call you mine?",
+        "category": "playful",
+        "tags": ["ownership", "cheeky"]
+      }
+    ],
+    "romantic": [
+      {
+        "id": 3,
+        "line": "If I were to ask you out on a date, would your answer be the same as the answer to this question?",
+        "category": "romantic",
+        "tags": ["clever", "date"]
+      },
+      {
+        "id": 4,
+        "line": "You must be made of copper and tellurium, because you're Cu-Te.",
+        "category": "romantic",
+        "tags": ["science", "pun"]
+      }
+    ],
+    "cheeky": [
+      {
+        "id": 5,
+        "line": "Is your dad a boxer? Because you're a knockout!",
+        "category": "cheeky",
+        "tags": ["compliment", "family"]
+      },
+      {
+        "id": 6,
+        "line": "Do you believe in love at first sight, or should I walk by again?",
+        "category": "cheeky",
+        "tags": ["confident", "funny"]
+      }
+    ],
+    "intellectual": [
+      {
+        "id": 7,
+        "line": "Are you made of beryllium, gold, and titanium? Because you're Be-Au-Ti-ful.",
+        "category": "intellectual",
+        "tags": ["science", "wordplay"]
+      },
+      {
+        "id": 8,
+        "line": "My love for you is like the universe - ever-expanding and impossible to measure.",
+        "category": "intellectual",
+        "tags": ["cosmic", "deep"]
+      }
+    ],
+    "situational": [
+      {
+        "id": 9,
+        "line": "Is your name Google? Because you have everything I'm searching for.",
+        "category": "situational",
+        "tags": ["tech", "modern"]
+      },
+      {
+        "id": 10,
+        "line": "If beauty were time, you'd be an eternity.",
+        "category": "situational",
+        "tags": ["poetic", "timeless"]
+      }
+    ]
+  },
+  "metadata": {
+    "total_categories": 5,
+    "total_lines": 10,
+    "last_updated": "2023-11-15",
+    "version": "1.1.0"
+  }
+}

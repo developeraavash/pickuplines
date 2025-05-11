@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pickuplines/features/home/screens/home_screen.dart';
 
 void main() {
-  runApp(const DailyQuotesApp());
+  runApp(
+    ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: const DailyQuotesApp(),
+    ),
+  );
 }
 
 class DailyQuotesApp extends StatelessWidget {
