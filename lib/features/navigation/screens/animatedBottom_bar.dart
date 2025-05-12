@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pickuplines/core/helpers/THelperFunc.dart';
 import 'package:pickuplines/features/navigation/model/navigation_item_data.dart';
 import 'package:pickuplines/features/navigation/widgets/navigation_bar_item.dart';
 
@@ -20,7 +21,6 @@ class AnimatedBottomNavigationBar extends StatelessWidget {
       activeColor: Color(0xFF5EAFC0),
     ),
     NavigationItemData(
-      
       icon: Icons.favorite_rounded,
       label: 'First Lines',
       activeColor: Color(0xFFFF6B9E),
@@ -39,6 +39,7 @@ class AnimatedBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Thelperfunc.isDarkMode(context);
     return Container(
       height: 80,
       decoration: BoxDecoration(

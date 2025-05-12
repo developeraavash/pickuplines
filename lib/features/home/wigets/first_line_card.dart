@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pickuplines/core/constants/app_colors.dart';
+import 'package:pickuplines/core/helpers/THelperFunc.dart';
 
 class FirstLineCard extends StatelessWidget {
   final String category;
@@ -14,6 +16,7 @@ class FirstLineCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Thelperfunc.isDarkMode(context);
     return Container(
       width: 280,
       padding: EdgeInsets.all(16),
@@ -46,7 +49,7 @@ class FirstLineCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 13,
               height: 1.4,
-              color: Colors.grey.shade800,
+              color: isDarkMode ? AppColors.textWhite : Colors.grey.shade800,
             ),
           ),
           Row(

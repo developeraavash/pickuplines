@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pickuplines/core/constants/app_sizes.dart';
+import 'package:pickuplines/core/helpers/THelperFunc.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/screens/first_line.dart';
 import 'package:pickuplines/features/home/wigets/first_line_card.dart';
 import 'package:pickuplines/features/home/wigets/quote_datails_screen.dart';
-import 'package:pickuplines/features/navigation/screens/animatedBottom_bar.dart';
 import 'package:pickuplines/features/pointedcard/screens/pointed_quotes_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,18 +18,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
   List<dynamic> flirtLines = [];
   bool isLoading = true;
-
-  final List<Widget> _screens = [
-    HomeScreen(),
-    GirlsFirstLinesScreen(), // <-- Your First Lines screen
-    GirlsFirstLinesScreen(), // <-- Your First Lines screen
-    GirlsFirstLinesScreen(), // <-- Your First Lines screen
-    // SavedScreen(),
-    // SettingsScreen(),
-  ];
 
   @override
   void initState() {
@@ -68,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: CurvedAppBar(
         title: 'Flirt Lines',
         showBackButton: false,
-        height: 170,
+        height: AppSizes.appBarHeightDetail,
         subtitle: 'We\'ve picked some lines for You',
       ),
       body:
@@ -101,7 +92,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF333333),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                           ),
                         ),
                         Spacer(),
@@ -128,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   // Flirt Lines Horizontal Scroll
                   SizedBox(
-                    height: 140,
+                    height: AppSizes.scrollableCardSize,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
@@ -166,7 +160,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF333333),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                           ),
                         ),
                       ],

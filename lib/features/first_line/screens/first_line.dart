@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/widgets/category_chip.dart';
 import 'package:pickuplines/features/first_line/widgets/first_line_category_card.dart';
-import 'package:pickuplines/features/navigation/screens/animatedBottom_bar.dart';
 
 class GirlsFirstLinesScreen extends StatefulWidget {
   const GirlsFirstLinesScreen({super.key});
@@ -14,8 +12,6 @@ class GirlsFirstLinesScreen extends StatefulWidget {
 }
 
 class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
-  int _selectedIndex = 1;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

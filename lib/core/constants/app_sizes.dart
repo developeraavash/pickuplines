@@ -14,6 +14,8 @@ class AppSizes {
   static double appBarHeightDetail = 150.h;
   static double appBarHeightDetailPadding = 160.h;
   static const double navBarHeight = 80.0;
+  // Scrollable Card Size
+  static double scrollableCardSize = 140.h;
 
   // Font Sizes
   static const double fontSizeSmall = 12.0;
