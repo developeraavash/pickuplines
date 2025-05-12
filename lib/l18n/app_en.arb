@@ -1,0 +1,90 @@
+{
+    "drivingLicense":"Driving License",
+    "helloWorld":"Hello World man",
+    "selectLanguage":"Select language ",
+
+    "categoryaPlusB":"Category A+B",
+    "categoryaPlusBSub":"Light Vekhicles and MoterCycle",
+    "categoryA":"Category A",
+    "categoryASub":"Motercycle",
+    "categoryB":"Category B",
+    "categoryBSub":"Car",
+    "categoryC":"Category C",
+    "categoryCSub":"Courrier",
+    "categoryD":"Category D",
+    "categoryDSub":"Bus",
+    "noQuestionAvailable":"No questions available",
+    "timeLeft":"Time Left",
+    "previous":"Previous",
+    "finish":"Finish",
+    "next":"Next",
+    "circulationSecurityUrgentMissionVehicles":"Circulation, security, urgent mission vehicles",
+    "dangerSigns":"Danger Signs",
+    "givingWay":"Giving way, defensive driving and pedestrians",
+    "indicationSigns":"Indication Signs",
+    "obligationSigns":"Obligation signs",
+    "physicalCondition":"Physical condition of the driver, alcohol, drugs and medications",
+    "prohibitionSigns":"Prohibition Signs",
+    "speedOtherManeuvers":"Speed,other maneuvers, speed constraints",
+    "stoppingParkingAndCrossing":"Stopping, parking and crossing vehicles, overtaking",
+    "titlesObtainingRevalidation":"Titles, obtaining, revalidation, civil and criminal liability, against ordinations, cassation",
+    "trafficLights":"Traffic lights, road markings, other signs",
+    "trafficroutesAndAdverse":"Traffic routes and adverse environmental conditions",
+    "yieldSigns":"Yield Signs",
+
+    "protectiveEquipment":"Protective Equipment",
+    "roadClassification":"Road Classification",
+    "vehicleComponents":"Vehicle Components",
+    "visibilityInRelation":"Visibility InRelation",
+
+
+    "classificationConstituents":"Classification Constituents",
+    "dangerSings":"Danger Sings",
+    "drivingLicensesObtaining":"Driving Licenses Obtaining",
+    "lightingPassengers":"Lighting Passengers",
+    "otherManeuvers":"Other Maneuvers",
+    "overTaking":"Overtaking",
+    "specificPrescription":"Specific Prescription",
+    "speed":"Speed",
+    "stoppingParking":"Stopping Parking",
+    "trafficLightsPavement":"Traffic Lights Pavement",
+    "trafficRoutesAdverse":"Traffic Routes Adverse",
+    "trafficSafety":"Traffic Safety",
+
+    "documentsThatDriver":"Documents That Driver",
+    "drivingAndRestPeriods":"Driving and Rest Periods",
+    "environmentalProtection":"Environmental Protection and Safety Equipment",
+    "logistics":" Logistics (types, use, reading and maintenance)",
+    "maintenance":"Maintenance",
+    "transportOfGoods":"Transport of Goods",
+    "vehicleBasics":"Vehicle Basics",
+    "vehicleClassification":"Vehicle Classification and Periodic Inspections",
+
+
+     
+    "passengerTransport":"Passenger Transport",
+    "classificationVehicleCharacteristics":"Classification, vehicle characteristics",
+    "drivingSchool":"Driving School",
+    "learntoDriveSafely":"Learn to Drive Safely",
+    "home":"Home",
+    "settings":"Settings",
+    "about":"About",
+    "drivingSchoolApp":"Driving School App",
+    "version":"1.0.0",
+    "copyRightSmait":"© 2024 Smait Software",
+    "allGuide":"Learn Driving",
+    
+
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+    "h":""
+} 

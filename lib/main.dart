@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pickuplines/core/theme/theme.dart';
- import 'package:pickuplines/routes/app_routes.dart';
+import 'package:pickuplines/routes/app_routes.dart';
+import 'package:pickuplines/l18n/app_localizations.dart';
 
 void main() {
   runApp(
@@ -31,7 +32,8 @@ class FlirtApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-        localizationsDelegates: [
+      localizationsDelegates: [
+        AppLocalizations.delegate, // Add this line
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
@@ -40,6 +42,7 @@ class FlirtApp extends StatelessWidget {
         Locale('en'), // English
         Locale('es'), // Spanish
       ],
+
       title: 'Daily Flirts',
 
       darkTheme: CAppTheme.darkTheme,
