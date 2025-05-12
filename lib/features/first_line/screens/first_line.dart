@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
-import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
+ import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/widgets/category_chip.dart';
 import 'package:pickuplines/features/first_line/widgets/first_line_category_card.dart';
+import 'package:pickuplines/l18n/app_localizations.dart';
 
 class GirlsFirstLinesScreen extends StatefulWidget {
   const GirlsFirstLinesScreen({super.key});
@@ -14,13 +15,14 @@ class GirlsFirstLinesScreen extends StatefulWidget {
 class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CurvedAppBar(
-        title: 'First Lines for Her',
-        showBackButton: true,
+        title: t.firstLineForHer,
+        // showBackButton: false,
         height: AppSizes.appBarHeightDetail,
-        subtitle: 'Conversation starters that connect',
+        subtitle: t.conversationStarterThatConnect,
       ),
       body: ListView(
         padding: EdgeInsets.only(

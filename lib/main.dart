@@ -17,12 +17,24 @@ void main() {
   );
 }
 
-class FlirtApp extends StatelessWidget {
+class FlirtApp extends StatefulWidget {
   const FlirtApp({super.key});
 
   @override
+  State<FlirtApp> createState() => _FlirtAppState();
+}
+
+class _FlirtAppState extends State<FlirtApp> {
+  Locale? _locale;
+
+  void setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // Set status bar to transparent
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -32,23 +44,40 @@ class FlirtApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
-        AppLocalizations.delegate, // Add this line
+      locale: _locale,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('en'), // English
         Locale('es'), // Spanish
       ],
-
-      title: 'Daily Flirts',
-
       darkTheme: CAppTheme.darkTheme,
       theme: CAppTheme.lightTheme,
       initialRoute: RouteManger.home,
       onGenerateRoute: RouteManger.generateRoute,
+      builder: (context, child) {
+        return LocaleProvider(setLocale: setLocale, child: child!);
+      },
     );
   }
+}
+
+// InheritedWidget to provide setLocale down the tree
+class LocaleProvider extends InheritedWidget {
+  final void Function(Locale) setLocale;
+  const LocaleProvider({
+    super.key,
+    required this.setLocale,
+    required super.child,
+  });
+
+  static LocaleProvider? of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<LocaleProvider>();
+
+  @override
+  bool updateShouldNotify(LocaleProvider oldWidget) => false;
 }
