@@ -32,14 +32,14 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
             colors:
                 Thelperfunc.isDarkMode(context)
                     ? [
-                      const Color(0xFF673AB7), // Deep Purple 500
-                      const Color(0xFF4527A0), // Deep Purple 800
-                      const Color(0xFF311B92), // Deep Purple 900
+                      const Color(0xFFC2185B), // Pink 700
+                      const Color(0xFFAD1457), // Pink 800
+                      const Color(0xFF78002E), // Darker custom burgundy
                     ]
                     : [
-                      const Color(0xFF9575CD), // Deep Purple 300
-                      const Color(0xFF7E57C2), // Deep Purple 400
-                      const Color(0xFF673AB7), // Deep Purple 500
+                      const Color(0xFFF06292), // Pink 300
+                      const Color(0xFFD81B60), // Pink 600
+                      const Color(0xFFC2185B), // Pink 700
                     ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -47,13 +47,14 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha: 0.3),
               spreadRadius: 2,
               blurRadius: 6,
               offset: const Offset(0, 3),
             ),
           ],
         ),
+
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
