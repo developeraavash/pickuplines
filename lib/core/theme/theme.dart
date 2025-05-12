@@ -6,29 +6,29 @@ import 'package:pickuplines/core/theme/custom_theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TAppTheme {
-  TAppTheme._();
+class CAppTheme {
+  CAppTheme._();
 
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
     primaryColor: Colors.blue,
-    textTheme: TTextTheme.lightTextTheme,
+    textTheme: CTextTheme.lightTextTheme,
     scaffoldBackgroundColor: Colors.white,
     fontFamily: GoogleFonts.poppins().fontFamily,
-    appBarTheme: TAppbarTheme.lightAppBarTheme,
-    elevatedButtonTheme: TElevatedButtonTheme.lightElevatedButtonTheme,
-    inputDecorationTheme: TTextFeildTheme.lightInputDecorationTheme,
+    appBarTheme: CAppbarTheme.lightAppBarTheme,
+    elevatedButtonTheme: CElevatedButtonTheme.lightElevatedButtonTheme,
+    inputDecorationTheme: CTextFeildTheme.lightInputDecorationTheme,
   );
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
     primaryColor: Colors.blue,
-    textTheme: TTextTheme.darkTextTheme,
+    textTheme: CTextTheme.darkTextTheme,
     scaffoldBackgroundColor: Colors.black,
-    appBarTheme: TAppbarTheme.darkAppBarTheme,
+    appBarTheme: CAppbarTheme.darkAppBarTheme,
     fontFamily: GoogleFonts.poppins().fontFamily,
-    elevatedButtonTheme: TElevatedButtonTheme.darkElevatedButtonTheme,
-    inputDecorationTheme: TTextFeildTheme.darkInputDecorationTheme,
+    elevatedButtonTheme: CElevatedButtonTheme.darkElevatedButtonTheme,
+    inputDecorationTheme: CTextFeildTheme.darkInputDecorationTheme,
   );
 }

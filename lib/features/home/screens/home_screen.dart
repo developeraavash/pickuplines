@@ -8,7 +8,6 @@ import 'package:pickuplines/features/home/wigets/first_line_card.dart';
 import 'package:pickuplines/features/home/wigets/quote_datails_screen.dart';
 import 'package:pickuplines/features/navigation/screens/animatedBottom_bar.dart';
 import 'package:pickuplines/features/pointedcard/screens/pointed_quotes_card.dart';
-import 'package:pickuplines/main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,6 +20,15 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   List<dynamic> flirtLines = [];
   bool isLoading = true;
+
+  final List<Widget> _screens = [
+    HomeScreen(),
+    GirlsFirstLinesScreen(), // <-- Your First Lines screen
+    GirlsFirstLinesScreen(), // <-- Your First Lines screen
+    GirlsFirstLinesScreen(), // <-- Your First Lines screen
+    // SavedScreen(),
+    // SettingsScreen(),
+  ];
 
   @override
   void initState() {
@@ -200,14 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                 ],
               ),
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        selectedIndex: _selectedIndex,
-        onItemSelected: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-      ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(

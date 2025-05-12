@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pickuplines/features/navigation/model/navigation_item_data.dart';
-import 'package:pickuplines/features/navigation/screens/navigation_bar_item.dart';
+import 'package:pickuplines/features/navigation/widgets/navigation_bar_item.dart';
 
 class AnimatedBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
@@ -20,6 +20,7 @@ class AnimatedBottomNavigationBar extends StatelessWidget {
       activeColor: Color(0xFF5EAFC0),
     ),
     NavigationItemData(
+      
       icon: Icons.favorite_rounded,
       label: 'First Lines',
       activeColor: Color(0xFFFF6B9E),

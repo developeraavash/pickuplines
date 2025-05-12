@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/widgets/category_chip.dart';
 import 'package:pickuplines/features/first_line/widgets/first_line_category_card.dart';
 import 'package:pickuplines/features/navigation/screens/animatedBottom_bar.dart';
- 
+
 class GirlsFirstLinesScreen extends StatefulWidget {
   const GirlsFirstLinesScreen({super.key});
 
@@ -21,11 +23,16 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
       appBar: CurvedAppBar(
         title: 'First Lines for Her',
         showBackButton: true,
-        height: 130,
+        height: AppSizes.appBarHeightDetail,
         subtitle: 'Conversation starters that connect',
       ),
       body: ListView(
-        padding: EdgeInsets.only(top: 150, left: 20, right: 20, bottom: 100),
+        padding: EdgeInsets.only(
+          top: AppSizes.appBarHeightDetailPadding,
+          left: 20,
+          right: 20,
+          bottom: 100,
+        ),
         children: [
           // Categories
           Padding(
@@ -117,14 +124,6 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
             ],
           ),
         ],
-      ),
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        selectedIndex: _selectedIndex,
-        onItemSelected: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
       ),
     );
   }

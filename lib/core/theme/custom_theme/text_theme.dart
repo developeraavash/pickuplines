@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TTextTheme {
-  TTextTheme._();
+class CTextTheme {
+  CTextTheme._();
 
   // Helper function for creating TextStyle with default parameters
   static TextStyle _baseTextStyle({

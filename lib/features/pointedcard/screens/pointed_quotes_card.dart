@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/widgets/curved/pointer_card_painter.dart';
 
 class PointedQuoteCard extends StatelessWidget {
@@ -22,28 +24,38 @@ class PointedQuoteCard extends StatelessWidget {
       child: CustomPaint(
         painter: PointedCardPainter(color: color),
         child: Container(
-          height: 70,
+          height: 80.h,
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: AppSizes.md,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  Text(
-                    author,
-                    style: const TextStyle(color: Colors.white70, fontSize: 14),
-                  ),
-                ],
+                    Text(
+                      author,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: AppSizes.md,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
               const Icon(Icons.more_horiz, color: Colors.white),
             ],

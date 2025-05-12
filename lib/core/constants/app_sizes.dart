@@ -1,3 +1,5 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class AppSizes {
   // Padding and Margin
   static const double xs = 4.0;
@@ -9,7 +11,8 @@ class AppSizes {
 
   // App Bar
   static const double appBarHeightHome = 180.0;
-  static const double appBarHeightDetail = 130.0;
+  static double appBarHeightDetail = 150.h;
+  static double appBarHeightDetailPadding = 160.h;
   static const double navBarHeight = 80.0;
 
   // Font Sizes

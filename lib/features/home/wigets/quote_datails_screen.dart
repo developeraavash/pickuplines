@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/pointedcard/screens/pointed_quotes_card.dart';
-import 'package:pickuplines/features/pointedcard/screens/pointed_quotes_card_details.dart';
+import 'package:pickuplines/features/pointedcard/screens/pointed_flirt_card_details.dart';
 import 'package:pickuplines/features/navigation/screens/animatedBottom_bar.dart';
 
 class QuoteDetailScreen extends StatefulWidget {
@@ -81,7 +82,7 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
             widget.quote.length > 20
                 ? '${widget.quote.substring(0, 20)}...'
                 : widget.quote,
-        height: 120,
+        height: AppSizes.appBarHeightDetail,
         subtitle: widget.author,
         showBackButton: true,
       ),
@@ -90,14 +91,14 @@ class _QuoteDetailScreenState extends State<QuoteDetailScreen> {
               ? const Center(child: CircularProgressIndicator())
               : ListView(
                 padding: EdgeInsets.only(
-                  top: 140,
+                  top: AppSizes.appBarHeightDetailPadding,
                   left: 20,
                   right: 20,
                   bottom: 100,
                 ),
                 children: [
                   // Main quote display
-                  PointedQuoteDetailCard(
+                  PointedFlirtDetailCard(
                     title: widget.quote,
                     author: widget.author,
                     color: widget.color,
