@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pickuplines/features/home/screens/home_screen.dart';
-import 'package:pickuplines/features/first_line/screens/first_line.dart';
+import 'package:pickuplines/features/first_line/screens/first_line_screen.dart';
 // import other screens as needed
 import 'package:pickuplines/features/navigation/screens/animatedBottom_bar.dart';
 

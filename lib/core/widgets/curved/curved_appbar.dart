@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pickuplines/core/constants/app_colors.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
+import 'package:pickuplines/core/helpers/THelperFunc.dart';
 import 'package:pickuplines/core/widgets/curved/bottom_clipper.dart';
 import 'package:pickuplines/main.dart';
 
@@ -27,7 +27,33 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
       clipper: CurvedBottomClipper(),
       child: Container(
         height: height,
-        color: AppColors.accent,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors:
+                Thelperfunc.isDarkMode(context)
+                    ? [
+                      const Color(0xFF673AB7), // Deep Purple 500
+                      const Color(0xFF4527A0), // Deep Purple 800
+                      const Color(0xFF311B92), // Deep Purple 900
+                    ]
+                    : [
+                      const Color(0xFF9575CD), // Deep Purple 300
+                      const Color(0xFF7E57C2), // Deep Purple 400
+                      const Color(0xFF673AB7), // Deep Purple 500
+                    ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: const [0.0, 0.5, 1.0],
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 6,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
@@ -46,7 +72,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 icon: const Icon(
                                   Icons.arrow_back_ios,
                                   size: 20,
-                                  color: AppColors.textWhite,
+                                  color: Colors.white,
                                 ),
                                 onPressed: () => Navigator.pop(context),
                                 padding: EdgeInsets.zero,
@@ -55,11 +81,10 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
                               const SizedBox(width: 10),
                               Text(
                                 title,
-                                maxLines: 2,
                                 style: const TextStyle(
                                   fontSize: AppSizes.md,
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textWhite,
+                                  color: Colors.white,
                                 ),
                               ),
                             ],
@@ -70,7 +95,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
                               Text(
                                 title,
                                 style: const TextStyle(
-                                  color: AppColors.textWhite,
+                                  color: Colors.white,
                                   fontSize: AppSizes.lg,
                                   fontWeight: FontWeight.bold,
                                 ),
