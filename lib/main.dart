@@ -26,10 +26,17 @@ class FlirtApp extends StatefulWidget {
 
 class _FlirtAppState extends State<FlirtApp> {
   Locale? _locale;
+  ThemeMode _themeMode = ThemeMode.light;
 
   void setLocale(Locale locale) {
     setState(() {
       _locale = locale;
+    });
+  }
+
+  void setThemeMode(ThemeMode mode) {
+    setState(() {
+      _themeMode = mode;
     });
   }
 
@@ -45,6 +52,7 @@ class _FlirtAppState extends State<FlirtApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       locale: _locale,
+      themeMode: _themeMode,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -53,31 +61,42 @@ class _FlirtAppState extends State<FlirtApp> {
       ],
       supportedLocales: const [
         Locale('en'), // English
-        Locale('es'), // Spanish
+        Locale('np'), // Spanish
       ],
       darkTheme: CAppTheme.darkTheme,
       theme: CAppTheme.lightTheme,
       initialRoute: RouteManger.home,
       onGenerateRoute: RouteManger.generateRoute,
       builder: (context, child) {
-        return LocaleProvider(setLocale: setLocale, child: child!);
+        return LocaleAndThemeProvider(
+          setLocale: setLocale,
+          setThemeMode: setThemeMode,
+          themeMode: _themeMode,
+          child: child!,
+        );
       },
     );
   }
 }
 
-// InheritedWidget to provide setLocale down the tree
-class LocaleProvider extends InheritedWidget {
+// InheritedWidget to provide setLocale and setThemeMode
+class LocaleAndThemeProvider extends InheritedWidget {
   final void Function(Locale) setLocale;
-  const LocaleProvider({
+  final void Function(ThemeMode) setThemeMode;
+  final ThemeMode themeMode;
+
+  const LocaleAndThemeProvider({
     super.key,
     required this.setLocale,
+    required this.setThemeMode,
+    required this.themeMode,
     required super.child,
   });
 
-  static LocaleProvider? of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<LocaleProvider>();
+  static LocaleAndThemeProvider? of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<LocaleAndThemeProvider>();
 
   @override
-  bool updateShouldNotify(LocaleProvider oldWidget) => false;
+  bool updateShouldNotify(LocaleAndThemeProvider oldWidget) =>
+      themeMode != oldWidget.themeMode;
 }

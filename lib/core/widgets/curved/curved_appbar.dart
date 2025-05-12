@@ -55,8 +55,9 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
                               const SizedBox(width: 10),
                               Text(
                                 title,
+                                maxLines: 2,
                                 style: const TextStyle(
-                                  fontSize: 22,
+                                  fontSize: AppSizes.md,
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.textWhite,
                                 ),
@@ -94,11 +95,31 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ],
                   ),
                 ),
+                // Theme switcher
+                IconButton(
+                  icon: Icon(
+                    Theme.of(context).brightness == Brightness.dark
+                        ? Icons.light_mode
+                        : Icons.dark_mode,
+                    color: Colors.white,
+                  ),
+                  tooltip: 'Toggle Theme',
+                  onPressed: () {
+                    final provider = LocaleAndThemeProvider.of(context);
+                    if (provider != null) {
+                      provider.setThemeMode(
+                        provider.themeMode == ThemeMode.dark
+                            ? ThemeMode.light
+                            : ThemeMode.dark,
+                      );
+                    }
+                  },
+                ),
                 // Language selector
                 PopupMenuButton<Locale>(
                   icon: const Icon(Icons.language, color: Colors.white),
                   onSelected: (locale) {
-                    LocaleProvider.of(context)?.setLocale(locale);
+                    LocaleAndThemeProvider.of(context)?.setLocale(locale);
                   },
                   itemBuilder:
                       (context) => const [
