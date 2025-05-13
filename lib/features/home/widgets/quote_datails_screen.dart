@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
-import 'package:pickuplines/features/pointedcard/screens/pointed_quotes_card.dart';
-import 'package:pickuplines/features/pointedcard/screens/pointed_flirt_card_details.dart';
+import 'package:pickuplines/features/home/widgets/pointed_quotes_card.dart';
+import 'package:pickuplines/features/home/widgets/pointed_flirt_card_details.dart';
 import 'package:pickuplines/features/navigation/screens/animatedBottom_bar.dart';
 
 class QuoteDetailScreen extends StatefulWidget {

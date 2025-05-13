@@ -7,9 +7,9 @@ import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/widgets/alertbox.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/screens/first_line_screen.dart';
-import 'package:pickuplines/features/home/wigets/first_line_card.dart';
-import 'package:pickuplines/features/home/wigets/quote_datails_screen.dart';
-import 'package:pickuplines/features/pointedcard/screens/pointed_quotes_card.dart';
+import 'package:pickuplines/features/home/widgets/first_line_card.dart';
+import 'package:pickuplines/features/home/widgets/quote_datails_screen.dart';
+import 'package:pickuplines/features/home/widgets/pointed_quotes_card.dart';
 import 'package:pickuplines/features/home/data/flirt_categories.dart';
 import 'package:pickuplines/l18n/app_localizations.dart';
 
