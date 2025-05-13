@@ -16,7 +16,9 @@ class GirlsFirstLinesScreen extends StatefulWidget {
 
 class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
   List<dynamic> categories = [];
+  List<dynamic> chipCategories = [];
   bool isLoading = true;
+  int selectedChipIndex = 0;
 
   @override
   void initState() {
@@ -31,6 +33,11 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
     final jsonResult = json.decode(data);
     setState(() {
       categories = jsonResult['categories'];
+      // Create chip categories from the main categories
+      chipCategories =
+          categories
+              .map((cat) => {'label': cat['title'], 'color': cat['color']})
+              .toList();
       isLoading = false;
     });
   }
@@ -77,47 +84,47 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
                   bottom: 100,
                 ),
                 children: [
-                  // Categories (you can also load these from JSON if you want)
+                  // Dynamic category chips
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CategoryChip(
-                          label: 'Genuine',
-                          color: Color(0xFFFF6B9E),
-                          isSelected: true,
-                        ),
-                        CategoryChip(
-                          label: 'Playful',
-                          color: Color(0xFF9E8FFF),
-                          isSelected: false,
-                        ),
-                        CategoryChip(
-                          label: 'Deep',
-                          color: Color(0xFF5ED584),
-                          isSelected: false,
-                        ),
-                        CategoryChip(
-                          label: 'Funny',
-                          color: Color(0xFFF9BA51),
-                          isSelected: false,
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Dynamically generated cards
-                  for (final cat in categories)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: FirstLineCategoryCard(
-                        title: cat['title'],
-                        subtitle: cat['subtitle'],
-                        icon: _iconFromString(cat['icon']),
-                        color: _colorFromHex(cat['color']),
-                        lines: List<String>.from(cat['lines']),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          for (int i = 0; i < chipCategories.length; i++)
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8),
+                              child: CategoryChip(
+                                label: chipCategories[i]['label'],
+                                color: _colorFromHex(
+                                  chipCategories[i]['color'],
+                                ),
+                                isSelected: selectedChipIndex == i,
+                                onSelected: () {
+                                  setState(() {
+                                    selectedChipIndex = i;
+                                  });
+                                },
+                              ),
+                            ),
+                        ],
                       ),
                     ),
+                  ),
+                  // Dynamically generated cards - showing only the selected category
+                  FirstLineCategoryCard(
+                    title: categories[selectedChipIndex]['title'],
+                    subtitle: categories[selectedChipIndex]['subtitle'],
+                    icon: _iconFromString(
+                      categories[selectedChipIndex]['icon'],
+                    ),
+                    color: _colorFromHex(
+                      categories[selectedChipIndex]['color'],
+                    ),
+                    lines: List<String>.from(
+                      categories[selectedChipIndex]['lines'],
+                    ),
+                  ),
                 ],
               ),
     );
