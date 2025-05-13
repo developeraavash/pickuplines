@@ -1,14 +1,17 @@
 import 'dart:convert';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
-import 'package:pickuplines/core/helpers/THelperFunc.dart';
+import 'package:pickuplines/core/widgets/alertbox.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/screens/first_line_screen.dart';
 import 'package:pickuplines/features/home/wigets/first_line_card.dart';
 import 'package:pickuplines/features/home/wigets/quote_datails_screen.dart';
 import 'package:pickuplines/features/pointedcard/screens/pointed_quotes_card.dart';
+import 'package:pickuplines/features/home/data/flirt_categories.dart';
+import 'package:pickuplines/l18n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<dynamic> flirtLines = [];
   bool isLoading = true;
+  final Random _random = Random();
 
   @override
   void initState() {
@@ -30,17 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> loadFlirtContent() async {
     try {
       final String response = await rootBundle.loadString(
-        'assets/data/flirt_data.json',
+        'assets/data/home/flirt_data.json',
       );
       final data = await json.decode(response);
+
       setState(() {
-        // Combine all flirt lines from different categories
         flirtLines = [
-          ...data['flirt_content']['playful'],
-          ...data['flirt_content']['romantic'],
-          ...data['flirt_content']['cheeky'],
-          ...data['flirt_content']['intellectual'],
-          ...data['flirt_content']['situational'],
+          for (final category in flirtCategories)
+            ...data['flirt_content'][category],
         ];
         isLoading = false;
       });
@@ -52,15 +53,30 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Map<String, dynamic>? getRandomFlirtLine() {
+    if (flirtLines.isEmpty) return null;
+
+    int randomIndex = _random.nextInt(flirtLines.length);
+    return flirtLines[randomIndex] as Map<String, dynamic>;
+  }
+
+  // Shuffle the flirt lines for randomness
+  List<dynamic> getShuffledFlirtLines() {
+    final List<dynamic> shuffledList = List.from(flirtLines);
+    shuffledList.shuffle(_random);
+    return shuffledList;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CurvedAppBar(
-        title: 'Flirt Lines',
+        title: t.firstLine,
         showBackButton: false,
         height: AppSizes.appBarHeightDetail,
-        subtitle: 'We\'ve picked some lines for You',
+        subtitle: t.weHavePickedSomeLineFor,
       ),
       body:
           isLoading
@@ -73,7 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   bottom: 100,
                 ),
                 children: [
-                  // Flirt Lines Section Header
                   Padding(
                     padding: const EdgeInsets.only(bottom: 16),
                     child: Row(
@@ -120,7 +135,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  // Flirt Lines Horizontal Scroll
                   SizedBox(
                     height: AppSizes.scrollableCardSize,
                     child: ListView(
@@ -141,9 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  // All Flirt Lines Header
                   Padding(
-                    padding: const EdgeInsets.only(top: 25, bottom: 16),
+                    padding: const EdgeInsets.only(top: 25, bottom: 8),
                     child: Row(
                       children: [
                         Container(
@@ -170,47 +183,58 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  // All flirt lines list
-                  for (var i = 3; i < flirtLines.length; i++)
-                    Column(
-                      children: [
-                        PointedQuoteCard(
-                          title: flirtLines[i]['line'],
-                          author: flirtLines[i]['category'],
-                          color: _getColorForCategory(
-                            flirtLines[i]['category'],
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    itemCount: flirtLines.length,
+                    itemBuilder: (context, index) {
+                      final flirt = flirtLines[index];
+                      return Column(
+                        children: [
+                          PointedQuoteCard(
+                            title: flirt['line'],
+                            author: flirt['category'],
+                            color: _getColorForCategory(flirt['category']),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (context) => QuoteDetailScreen(
+                                        quote: flirt['line'],
+                                        author: flirt['category'],
+                                        tags: List<String>.from(flirt['tags']),
+                                        color: _getColorForCategory(
+                                          flirt['category'],
+                                        ),
+                                      ),
+                                ),
+                              );
+                            },
                           ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder:
-                                    (context) => QuoteDetailScreen(
-                                      quote: flirtLines[i]['line'],
-                                      author: flirtLines[i]['category'],
-                                      tags: List<String>.from(
-                                        flirtLines[i]['tags'],
-                                      ),
-                                      color: _getColorForCategory(
-                                        flirtLines[i]['category'],
-                                      ),
-                                    ),
-                              ),
-                            );
-                          },
-                        ),
-                        if (i < flirtLines.length - 1)
-                          const SizedBox(height: 16),
-                      ],
-                    ),
+                          if (index < flirtLines.length - 1)
+                            const SizedBox(height: 16),
+                        ],
+                      );
+                    },
+                  ),
                 ],
               ),
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => GirlsFirstLinesScreen()),
+          final randomFlirtLine = getRandomFlirtLine();
+
+          if (randomFlirtLine == null) {
+            return;
+          }
+
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertBox(randomFlirtLine: randomFlirtLine);
+            },
           );
         },
         backgroundColor: Color(0xFFFF6B9E),

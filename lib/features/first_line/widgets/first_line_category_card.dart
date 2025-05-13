@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pickuplines/core/constants/app_sizes.dart';
 
 class FirstLineCategoryCard extends StatelessWidget {
   final String title;
@@ -98,7 +100,7 @@ class FirstLineCategoryCard extends StatelessWidget {
                 SizedBox(height: 16),
                 ...List.generate(lines.length, (index) {
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.only(bottom: AppSizes.md),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -115,7 +117,7 @@ class FirstLineCategoryCard extends StatelessWidget {
                             size: 14,
                           ),
                         ),
-                        SizedBox(width: 14),
+                        SizedBox(width: 12.h),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

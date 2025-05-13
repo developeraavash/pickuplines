@@ -25,40 +25,6 @@ class PointedFlirtDetailCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: AppSizes.md,
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        author,
-                        style: const TextStyle(
-                          color: Colors.white70,
-                          fontSize: AppSizes.md,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-                const Icon(Icons.more_horiz, color: Colors.white),
-              ],
-            ),
-            const SizedBox(height: 30),
             Text(
               '"$quote"',
               style: const TextStyle(

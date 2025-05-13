@@ -1,17 +1,33 @@
-class FirstLine {
-  final String id;
-  final String title;
-  final String type;
+class FlirtLine {
+  final int id;
+  final List<String> lines; // support multiple lines
   final String category;
-  final String line;
-  final String imageUrl;
+  final List<String> tags;
 
-  FirstLine({
+  FlirtLine({
     required this.id,
-    required this.title,
-    required this.type,
+    required this.lines,
     required this.category,
-    required this.line,
-    required this.imageUrl,
+    required this.tags,
   });
+
+  factory FlirtLine.fromJson(Map<String, dynamic> json) {
+    // Support either "line" as a single string or "lines" as list:
+    List<String> extractedLines;
+    if (json['lines'] != null) {
+      extractedLines = List<String>.from(json['lines']);
+    } else if (json['line'] != null) {
+      extractedLines = [json['line']];
+    } else {
+      extractedLines = [];
+    }
+
+    return FlirtLine(
+      id: json['id'],
+      lines: extractedLines,
+      category: json['category'],
+      tags: List<String>.from(json['tags']),
+    );
+  }
 }
+

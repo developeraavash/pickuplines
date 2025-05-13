@@ -1,314 +1,324 @@
 {
   "flirt_content": {
+
     "playful": [
       {
         "id": 7,
         "line": "Are you a magician? Because whenever I look at you, everyone else disappears.",
-        "category": "playful",
+        "category": "Playful",
         "tags": ["magic", "sweet"]
       },
       {
         "id": 8,
         "line": "Do you have a map? I keep getting lost in your eyes.",
-        "category": "playful",
+        "category": "Playful",
         "tags": ["adventure", "eyes"]
       },
       {
         "id": 9,
         "line": "Are you a campfire? Because you’re hot and I want s’more.",
-        "category": "playful",
+        "category": "Playful",
         "tags": ["food", "nature"]
       },
       {
         "id": 10,
         "line": "If you were a vegetable, you’d be a cute-cumber.",
-        "category": "playful",
+        "category": "Playful",
         "tags": ["pun", "food"]
       },
       {
         "id": 11,
         "line": "Are you made of copper and tellurium? Because you’re Cu-Te.",
-        "category": "playful",
+        "category": "Playful",
         "tags": ["science", "pun"]
       },
       {
         "id": 12,
         "line": "Are you the sun? Because you brighten my day.",
-        "category": "playful",
+        "category": "Playful",
         "tags": ["nature", "cute"]
       },
       {
         "id": 13,
         "line": "Do you believe in fate, or should I walk by again?",
-        "category": "playful",
+        "category": "Playful",
         "tags": ["joke", "cute"]
       },
       {
         "id": 14,
         "line": "Do you have a Band-Aid? Because I just scraped my knee falling for you.",
-        "category": "playful",
+        "category": "Playful",
         "tags": ["cute", "joke"]
       },
       {
         "id": 15,
         "line": "Are you a time traveler? Because I see you in my future.",
-        "category": "playful",
+        "category": "Playful",
         "tags": ["sci-fi", "cute"]
       },
       {
         "id": 16,
         "line": "Are you Google? Because you’ve got everything I’m searching for.",
-        "category": "playful",
+        "category": "Playful",
         "tags": ["tech", "compliment"]
       }
+
+      
     ],
     "romantic": [
       {
         "id": 17,
         "line": "Every moment with you feels like a beautiful dream I never want to wake from.",
-        "category": "romantic",
+        "category": "Romantic",
         "tags": ["poetic", "sentimental"]
       },
       {
         "id": 18,
         "line": "You’re the melody to my heart’s favorite song.",
-        "category": "romantic",
+        "category": "Romantic",
         "tags": ["music", "poetic"]
       },
       {
         "id": 19,
         "line": "If kisses were stars, I’d give you the sky.",
-        "category": "romantic",
+        "category": "Romantic",
         "tags": ["nature", "affectionate"]
       },
       {
         "id": 20,
         "line": "Meeting you was like finding a piece of my soul I never knew was missing.",
-        "category": "romantic",
+        "category": "Romantic",
         "tags": ["deep", "love"]
       },
       {
         "id": 21,
         "line": "You’re the reason my heart beats a little faster every day.",
-        "category": "romantic",
+        "category": "Romantic",
         "tags": ["heart", "love"]
       },
       {
         "id": 22,
         "line": "If I had a flower for every time I thought of you, I’d have a garden forever in bloom.",
-        "category": "romantic",
+        "category": "Romantic",
         "tags": ["nature", "poetic"]
       },
       {
         "id": 23,
         "line": "You’re my favorite reason to smile.",
-        "category": "romantic",
+        "category": "Romantic",
         "tags": ["sweet", "simple"]
       },
       {
         "id": 24,
         "line": "Your love is the spark that lights up my darkest days.",
-        "category": "romantic",
+        "category": "Romantic",
         "tags": ["affectionate", "hopeful"]
       },
       {
         "id": 25,
         "line": "I didn’t believe in soulmates until I met you.",
-        "category": "romantic",
+        "category": "Romantic",
         "tags": ["deep", "love"]
       },
       {
         "id": 26,
         "line": "No one else makes my heart skip a beat the way you do.",
-        "category": "romantic",
+        "category": "Romantic",
         "tags": ["heart", "romance"]
       }
     ],
+
+
     "cheeky": [
       {
         "id": 27,
         "line": "Are you French? Because Eiffel for you.",
-        "category": "cheeky",
+        "category": "Cheeky",
         "tags": ["pun", "travel"]
       },
       {
         "id": 28,
         "line": "Do you have a name or can I call you mine?",
-        "category": "cheeky",
-        "tags": ["bold", "playful"]
+        "category": "Cheeky",
+        "tags": ["bold", "Playful"]
       },
       {
         "id": 29,
         "line": "Is your body a wonderland? Because I want to explore every inch.",
-        "category": "cheeky",
+        "category": "Cheeky",
         "tags": ["bold", "flirty"]
       },
       {
         "id": 30,
         "line": "Are you an interior decorator? Because when I saw you, the entire room became beautiful.",
-        "category": "cheeky",
+        "category": "Cheeky",
         "tags": ["flattery", "bold"]
       },
       {
         "id": 31,
         "line": "Are you tired? Because you’ve been running through my mind all day.",
-        "category": "cheeky",
+        "category": "Cheeky",
         "tags": ["classic", "bold"]
       },
       {
         "id": 32,
         "line": "Are you a parking ticket? Because you’ve got ‘fine’ written all over you.",
-        "category": "cheeky",
+        "category": "Cheeky",
         "tags": ["pun", "bold"]
       },
       {
         "id": 33,
         "line": "I’m not a photographer, but I can picture us together.",
-        "category": "cheeky",
-        "tags": ["bold", "playful"]
+        "category": "Cheeky",
+        "tags": ["bold", "Playful"]
       },
       {
         "id": 34,
         "line": "Are you a loan? Because you have my interest.",
-        "category": "cheeky",
+        "category": "Cheeky",
         "tags": ["finance", "pun"]
       },
       {
         "id": 35,
         "line": "If you were words on a page, you’d be the fine print.",
-        "category": "cheeky",
+        "category": "Cheeky",
         "tags": ["pun", "bold"]
       },
       {
         "id": 36,
         "line": "Do you have a sunburn, or are you always this hot?",
-        "category": "cheeky",
+        "category": "Cheeky",
         "tags": ["bold", "summer"]
       }
     ],
+
+
     "intellectual": [
       {
         "id": 37,
         "line": "Are you made of quarks and leptons? Because you’re elementary attractive.",
-        "category": "intellectual",
+        "category": "Intellectual",
         "tags": ["science", "physics"]
       },
       {
         "id": 38,
         "line": "I must be a neuron, because I’m firing signals whenever you’re near.",
-        "category": "intellectual",
+        "category": "Intellectual",
         "tags": ["biology", "science"]
       },
       {
         "id": 39,
         "line": "Are you the solution to my equation? Because you make everything add up.",
-        "category": "intellectual",
+        "category": "Intellectual",
         "tags": ["math", "science"]
       },
       {
         "id": 40,
         "line": "Is your intellect a black hole? Because I can’t escape being drawn to you.",
-        "category": "intellectual",
+        "category": "Intellectual",
         "tags": ["science", "space"]
       },
       {
         "id": 41,
         "line": "You must be entropy, because you keep my universe in perfect disorder.",
-        "category": "intellectual",
+        "category": "Intellectual",
         "tags": ["physics", "science"]
       },
       {
         "id": 42,
         "line": "Are you an algorithm? Because you solve my problems effortlessly.",
-        "category": "intellectual",
+        "category": "Intellectual",
         "tags": ["tech", "math"]
       },
       {
         "id": 43,
         "line": "Our chemistry isn’t just physical; it’s elemental.",
-        "category": "intellectual",
+        "category": "Intellectual",
         "tags": ["chemistry", "science"]
       },
       {
         "id": 44,
         "line": "If you were a theorem, you’d be beautifully proven and undeniably true.",
-        "category": "intellectual",
+        "category": "Intellectual",
         "tags": ["math", "philosophy"]
       },
       {
         "id": 45,
         "line": "You’re like the Higgs boson—giving mass to my otherwise empty heart.",
-        "category": "intellectual",
+        "category": "Intellectual",
         "tags": ["physics", "science"]
       },
       {
         "id": 46,
         "line": "Are you a rare element? Because you’re one in a million on the periodic table of life.",
-        "category": "intellectual",
+        "category": "Intellectual",
         "tags": ["chemistry", "unique"]
       }
     ],
+
     "situational": [
       {
         "id": 47,
         "line": "If you were a coffee, you’d be espresso—strong, hot, and making my heart race.",
-        "category": "situational",
+        "category": "Situational",
         "tags": ["food", "coffee"]
       },
       {
         "id": 48,
         "line": "Are you a book? Because I can’t put you down.",
-        "category": "situational",
+        "category": "Situational",
         "tags": ["books", "humor"]
       },
       {
         "id": 49,
         "line": "If you were a song on the radio, you’d be my favorite track on repeat.",
-        "category": "situational",
+        "category": "Situational",
         "tags": ["music", "affection"]
       },
       {
         "id": 50,
         "line": "Are you the last puzzle piece? Because you complete me.",
-        "category": "situational",
+        "category": "Situational",
         "tags": ["puzzle", "love"]
       },
       {
         "id": 51,
         "line": "If you were a season, you’d be spring—full of life and endless possibilities.",
-        "category": "situational",
+        "category": "Situational",
         "tags": ["nature", "seasons"]
       },
       {
         "id": 52,
         "line": "Is your smile a flashlight? Because it brightens up even the darkest rooms.",
-        "category": "situational",
+        "category": "Situational",
         "tags": ["light", "metaphor"]
       },
       {
         "id": 53,
         "line": "Are you a board game? Because I want to play my cards right with you.",
-        "category": "situational",
+        "category": "Situational",
         "tags": ["games", "fun"]
       },
       {
         "id": 54,
         "line": "If we were in a movie, you’d be the plot twist I never saw coming but always wanted.",
-        "category": "situational",
-        "tags": ["movies", "romantic"]
+        "category": "Situational",
+        "tags": ["movies", "Romantic"]
       },
       {
         "id": 55,
         "line": "Are you a rainbow? Because after every storm, you bring all the colors to my world.",
-        "category": "situational",
+        "category": "Situational",
         "tags": ["nature", "hope"]
       },
       {
         "id": 56,
         "line": "If you were ice cream, you’d be the cherry on top of my day.",
-        "category": "situational",
+        "category": "Situational",
         "tags": ["food", "sweet"]
       }
     ]
+
+
   }
 }

@@ -106,6 +106,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Conversation Starter That Connect'**
   String get conversationStarterThatConnect;
+
+  /// No description provided for @appTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Quotes'**
+  String get appTitle;
+
+  /// No description provided for @appSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ve picked some quotes for You'**
+  String get appSubtitle;
+
+  /// No description provided for @firstDateSection.
+  ///
+  /// In en, this message translates to:
+  /// **'First Date with Her'**
+  String get firstDateSection;
+
+  /// No description provided for @seeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See All'**
+  String get seeAll;
+
+  /// No description provided for @quotesSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspiring Quotes'**
+  String get quotesSection;
+
+  /// No description provided for @firstLineforHer.
+  ///
+  /// In en, this message translates to:
+  /// **'First Lines for Her'**
+  String get firstLineforHer;
+
+  /// No description provided for @genuine.
+  ///
+  /// In en, this message translates to:
+  /// **'Genuine'**
+  String get genuine;
+
+  /// No description provided for @playful.
+  ///
+  /// In en, this message translates to:
+  /// **'Playful'**
+  String get playful;
+
+  /// No description provided for @deep.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep'**
+  String get deep;
+
+  /// No description provided for @funny.
+  ///
+  /// In en, this message translates to:
+  /// **'Funny'**
+  String get funny;
+
+  /// No description provided for @coffeeShop.
+  ///
+  /// In en, this message translates to:
+  /// **'Coffee Shop'**
+  String get coffeeShop;
+
+  /// No description provided for @casualAndConfortableSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Casual and comfortable setting'**
+  String get casualAndConfortableSetting;
+
+  /// No description provided for @dinnerDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Dinner Date'**
+  String get dinnerDate;
+
+  /// No description provided for @forForRestaurantSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'For a restaurant setting'**
+  String get forForRestaurantSetting;
+
+  /// No description provided for @artGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Art Gallery'**
+  String get artGallery;
+
+  /// No description provided for @forTheCreativeConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'For the creative connection'**
+  String get forTheCreativeConnection;
+
+  /// No description provided for @walkInThePark.
+  ///
+  /// In en, this message translates to:
+  /// **'Walk in the Park'**
+  String get walkInThePark;
+
+  /// No description provided for @casualOutdoorConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Casual outdoor conversation'**
+  String get casualOutdoorConversation;
+
+  /// No description provided for @firstLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Flirt Lines'**
+  String get firstLine;
+
+  /// No description provided for @weHavePickedSomeLineFor.
+  ///
+  /// In en, this message translates to:
+  /// **'We have picked some lines for You'**
+  String get weHavePickedSomeLineFor;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
