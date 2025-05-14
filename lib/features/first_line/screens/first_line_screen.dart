@@ -28,7 +28,7 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
 
   Future<void> loadCategories() async {
     final String data = await rootBundle.loadString(
-      'assets/data/flirt_first_line.json',
+      'assets/data/firstline/flirt_first_line.json',
     );
     final jsonResult = json.decode(data);
     setState(() {

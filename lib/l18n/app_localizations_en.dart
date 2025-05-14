@@ -73,4 +73,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weHavePickedSomeLineFor => 'We have picked some lines for You';
+
+  @override
+  String get topFlirtLines => 'Top Flirt Lines';
+
+  @override
+  String get y => 'y';
 }

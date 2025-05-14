@@ -47,4 +47,10 @@ class AppSizes {
   static const double shadowBlurRadius = 20.0;
   static const double shadowOpacity = 0.15;
   static const double shadowYOffset = 5.0;
+
+  // sized box
+  static const double sizeboxsm = 8.0;
+  static const double sizeboxno = 16.0;
+  static const double sizeboxmd = 24.0;
+  static const double sizeboxlg = 32.0;
 }

@@ -226,6 +226,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We have picked some lines for You'**
   String get weHavePickedSomeLineFor;
+
+  /// No description provided for @topFlirtLines.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Flirt Lines'**
+  String get topFlirtLines;
+
+  /// No description provided for @y.
+  ///
+  /// In en, this message translates to:
+  /// **'y'**
+  String get y;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/widgets/curved/pointer_card_painter.dart';
 
-class PointedQuoteCard extends StatelessWidget {
+class PointedFlirtCard extends StatelessWidget {
   final String title;
   final String author;
   final Color color;
   final VoidCallback? onTap;
 
-  const PointedQuoteCard({
+  const PointedFlirtCard({
     super.key,
     required this.title,
     required this.author,

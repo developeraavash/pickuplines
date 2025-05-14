@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
- import 'package:pickuplines/core/constants/app_sizes.dart';
+import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/widgets/alertbox.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/screens/first_line_screen.dart';
 import 'package:pickuplines/features/home/widgets/first_line_card.dart';
-import 'package:pickuplines/features/home/widgets/quote_datails_screen.dart';
+import 'package:pickuplines/features/home/widgets/flirt_details_screen.dart';
 import 'package:pickuplines/features/home/widgets/pointed_quotes_card.dart';
 import 'package:pickuplines/features/home/data/flirt_categories.dart';
 import 'package:pickuplines/l18n/app_localizations.dart';
@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          'Top Flirt Lines',
+                          t.topFlirtLines,
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         for (var i = 0; i < 3 && i < flirtLines.length; i++)
                           Padding(
                             padding: EdgeInsets.only(right: i < 2 ? 16 : 0),
-                            child: FirstLineCard(
+                            child: TopFlirtLines(
                               category: flirtLines[i]['category'],
                               line: flirtLines[i]['line'],
                               color: _getColorForCategory(
@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       final flirt = flirtLines[index];
                       return Column(
                         children: [
-                          PointedQuoteCard(
+                          PointedFlirtCard(
                             title: flirt['line'],
                             author: flirt['category'],
                             color: _getColorForCategory(flirt['category']),
@@ -200,8 +200,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder:
-                                      (context) => QuoteDetailScreen(
-                                        quote: flirt['line'],
+                                      (context) => FlirtDetailScreen(
+                                        flirt: flirt['line'],
                                         author: flirt['category'],
                                         tags: List<String>.from(flirt['tags']),
                                         color: _getColorForCategory(
