@@ -78,5 +78,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get topFlirtLines => 'Top Flirt Lines';
 
   @override
+  String get savedLines => 'Saved Lines';
+
+  @override
+  String get yourFavoritePickupLines => 'Your Favorite Pickup Lines';
+
+  @override
+  String get noSavedLinesYet => 'No Saved Lines Yet';
+
+  @override
   String get y => 'y';
 }

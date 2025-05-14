@@ -17,9 +17,7 @@ class RouteManger {
         );
 
       default:
-        return MaterialPageRoute(
-          builder: (_) => const Center(child: Text("default")),
-        );
+        return MaterialPageRoute(builder: (_) => const MainScreen());
     }
   }
 }

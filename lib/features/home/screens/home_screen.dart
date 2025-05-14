@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
+import 'package:pickuplines/core/utils/services/favorite_ser.dart';
 import 'package:pickuplines/core/widgets/alertbox.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/screens/first_line_screen.dart';
@@ -82,6 +83,28 @@ class _HomeScreenState extends State<HomeScreen> {
     return shuffledList;
   }
 
+  // Add this method for copying to clipboard
+  void _copyToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text)).then((_) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Copied to clipboard')));
+    });
+  }
+
+  void _saveToFavorites(Map<String, dynamic> flirtLine) async {
+    try {
+      await FavoritesService.saveLine(flirtLine);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Added to favorites')));
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to save: $e')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
@@ -150,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  // Updated top flirt lines section
+                  //! Updated top flirt lines section
                   SizedBox(
                     height: AppSizes.scrollableCardSize,
                     child: ListView(
@@ -167,6 +190,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: _getColorForCategory(
                                 topCategoryLines[i]['category'],
                               ),
+                              onCopy:
+                                  () => _copyToClipboard(
+                                    topCategoryLines[i]['line'],
+                                  ),
+                              onFavorite:
+                                  () => _saveToFavorites(topCategoryLines[i]),
                             ),
                           ),
                       ],

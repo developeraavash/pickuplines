@@ -233,6 +233,24 @@ abstract class AppLocalizations {
   /// **'Top Flirt Lines'**
   String get topFlirtLines;
 
+  /// No description provided for @savedLines.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Lines'**
+  String get savedLines;
+
+  /// No description provided for @yourFavoritePickupLines.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Favorite Pickup Lines'**
+  String get yourFavoritePickupLines;
+
+  /// No description provided for @noSavedLinesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No Saved Lines Yet'**
+  String get noSavedLinesYet;
+
   /// No description provided for @y.
   ///
   /// In en, this message translates to:
