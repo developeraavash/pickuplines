@@ -8,6 +8,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String? subtitle;
   final bool showBackButton;
+  final bool showMenuButton; // <-- Add this
   final double height;
 
   const CurvedAppBar({
@@ -15,6 +16,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.title,
     this.subtitle,
     this.showBackButton = false,
+    this.showMenuButton = false, // <-- Add this
     required this.height,
   });
 
@@ -32,14 +34,14 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
             colors:
                 Thelperfunc.isDarkMode(context)
                     ? [
-                      const Color(0xFFC2185B), // Pink 700
-                      const Color(0xFFAD1457), // Pink 800
-                      const Color(0xFF78002E), // Darker custom burgundy
+                      const Color(0xFFC2185B),
+                      const Color(0xFFAD1457),
+                      const Color(0xFF78002E),
                     ]
                     : [
-                      const Color(0xFFF06292), // Pink 300
-                      const Color(0xFFD81B60), // Pink 600
-                      const Color(0xFFC2185B), // Pink 700
+                      const Color(0xFFF06292),
+                      const Color(0xFFD81B60),
+                      const Color(0xFFC2185B),
                     ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -47,7 +49,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3),
+              color: Colors.black.withOpacity(0.3),
               spreadRadius: 2,
               blurRadius: 6,
               offset: const Offset(0, 3),
@@ -62,53 +64,36 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Title and subtitle
+                if (showBackButton)
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                    onPressed: () => Navigator.pop(context),
+                  )
+                else if (showMenuButton)
+                  Builder(
+                    builder:
+                        (context) => IconButton(
+                          icon: const Icon(Icons.menu, color: Colors.white),
+                          onPressed: () => Scaffold.of(context).openDrawer(),
+                        ),
+                  ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      showBackButton
-                          ? Row(
-                            children: [
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_back_ios,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () => Navigator.pop(context),
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                title,
-                                style: const TextStyle(
-                                  fontSize: AppSizes.md,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          )
-                          : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                title,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: AppSizes.lg,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        maxLines: 1,
+                      ),
                       if (subtitle != null)
                         Padding(
-                          padding: EdgeInsets.only(
-                            left: showBackButton ? 30 : 0,
-                            top: 5,
-                          ),
+                          padding: const EdgeInsets.only(top: 5),
                           child: Text(
                             subtitle!,
                             style: const TextStyle(
@@ -116,12 +101,12 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
                               color: Colors.white70,
                               overflow: TextOverflow.ellipsis,
                             ),
+                            maxLines: 1,
                           ),
                         ),
                     ],
                   ),
                 ),
-                // Theme switcher
                 IconButton(
                   icon: Icon(
                     Theme.of(context).brightness == Brightness.dark

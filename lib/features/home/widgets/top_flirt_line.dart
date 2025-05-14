@@ -35,34 +35,40 @@ class TopFlirtLines extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppSizes.sm,
-                vertical: AppSizes.sm / 2,
-              ),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(AppSizes.md),
-              ),
-              child: Text(
-                category,
-                style: TextStyle(
-                  color: color,
-                  fontWeight: FontWeight.bold,
-                  fontSize: AppSizes.sm,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppSizes.sm,
+                    vertical: AppSizes.sm / 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(AppSizes.md),
+                  ),
+                  child: Text(
+                    category,
+                    style: TextStyle(
+                      color: color,
+                      fontWeight: FontWeight.bold,
+                      fontSize: AppSizes.sm,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(height: AppSizes.sm / 2),
-            Text(
-              line,
-              style: TextStyle(
-                fontSize: AppSizes.fontSizeSmall,
-                height: 1.4,
-                color: isDarkMode ? AppColors.textWhite : Colors.grey.shade800,
-              ),
+                SizedBox(height: AppSizes.sm / 2),
+                Text(
+                  line,
+                  style: TextStyle(
+                    fontSize: AppSizes.fontSizeSmall,
+                    height: 1.4,
+                    color:
+                        isDarkMode ? AppColors.textWhite : Colors.grey.shade800,
+                  ),
+                ),
+              ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -75,7 +81,6 @@ class TopFlirtLines extends StatelessWidget {
                   ),
                   onPressed: onFavorite, // Use the callback here
                 ),
-                SizedBox(width: AppSizes.sizeboxno),
                 IconButton(
                   icon: Icon(
                     Icons.copy_outlined,

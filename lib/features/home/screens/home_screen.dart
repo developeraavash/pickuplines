@@ -3,10 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
+import 'package:pickuplines/core/helpers/THelperFunc.dart';
 import 'package:pickuplines/core/utils/services/favorite_ser.dart';
 import 'package:pickuplines/core/widgets/alertbox.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/screens/first_line_screen.dart';
+import 'package:pickuplines/features/home/widgets/drawer_items.dart';
 import 'package:pickuplines/features/home/widgets/top_flirt_line.dart';
 import 'package:pickuplines/features/home/widgets/flirt_details_screen.dart';
 import 'package:pickuplines/features/home/widgets/pointed_quotes_card.dart';
@@ -113,9 +115,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: CurvedAppBar(
         title: t.firstLine,
         showBackButton: false,
+        showMenuButton: true, // <-- Add this
         height: AppSizes.appBarHeightDetail,
         subtitle: t.weHavePickedSomeLineFor,
       ),
+      drawer: AppDrawer(),
       body:
           isLoading
               ? const Center(child: CircularProgressIndicator())
@@ -302,5 +306,90 @@ class _HomeScreenState extends State<HomeScreen> {
       default:
         return const Color(0xFFB57470);
     }
+  }
+}
+
+class AppDrawer extends StatelessWidget {
+  const AppDrawer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Container(
+        color: const Color(0xFFC2185B), // Set your desired background color
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors:
+                      Thelperfunc.isDarkMode(context)
+                          ? [
+                            const Color(0xFFC2185B),
+                            const Color(0xFFAD1457),
+                            const Color(0xFF78002E),
+                          ]
+                          : [
+                            const Color(0xFFF06292),
+                            const Color(0xFFD81B60),
+                            const Color(0xFFC2185B),
+                          ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Pickup Lines',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Find the perfect line for any situation',
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+            DrawerItem(
+              icon: Icons.home,
+              title: 'Home',
+              onTap: () => Navigator.pop(context),
+            ),
+            DrawerItem(
+              icon: Icons.favorite,
+              title: 'Favorites',
+              onTap: () {
+                // Navigate to favorites screen
+                Navigator.pop(context);
+              },
+            ),
+            DrawerItem(
+              icon: Icons.settings,
+              title: 'Settings',
+              onTap: () {
+                // Navigate to settings screen
+                Navigator.pop(context);
+              },
+            ),
+            DrawerItem(
+              icon: Icons.star_border,
+              title: 'Rate 5 Star',
+              onTap: () {},
+            ),
+            DrawerItem(icon: Icons.share, title: 'Share App', onTap: () {}),
+          ],
+        ),
+      ),
+    );
   }
 }
