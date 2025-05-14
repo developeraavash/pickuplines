@@ -6,7 +6,7 @@ import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/widgets/alertbox.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/screens/first_line_screen.dart';
-import 'package:pickuplines/features/home/widgets/first_line_card.dart';
+import 'package:pickuplines/features/home/widgets/top_flirt_line.dart';
 import 'package:pickuplines/features/home/widgets/flirt_details_screen.dart';
 import 'package:pickuplines/features/home/widgets/pointed_quotes_card.dart';
 import 'package:pickuplines/features/home/data/flirt_categories.dart';
@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<dynamic> flirtLines = [];
   bool isLoading = true;
   final Random _random = Random();
+  List<dynamic> topCategoryLines = []; // New list for top category lines
 
   @override
   void initState() {
@@ -42,6 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
           for (final category in flirtCategories)
             ...data['flirt_content'][category],
         ];
+
+        // Get one random line from each category for the top section
+        topCategoryLines = _getTopCategoryLines(data['flirt_content']);
         isLoading = false;
       });
     } catch (e) {
@@ -52,14 +56,26 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // New method to get one random line from each category
+  List<dynamic> _getTopCategoryLines(Map<String, dynamic> flirtContent) {
+    List<dynamic> result = [];
+    for (final category in flirtCategories) {
+      if (flirtContent[category] != null && flirtContent[category].isNotEmpty) {
+        final randomIndex = _random.nextInt(flirtContent[category].length);
+        result.add(flirtContent[category][randomIndex]);
+      }
+    }
+    // Shuffle to randomize the order
+    result.shuffle(_random);
+    return result;
+  }
+
   Map<String, dynamic>? getRandomFlirtLine() {
     if (flirtLines.isEmpty) return null;
-
     int randomIndex = _random.nextInt(flirtLines.length);
     return flirtLines[randomIndex] as Map<String, dynamic>;
   }
 
-  // Shuffle the flirt lines for randomness
   List<dynamic> getShuffledFlirtLines() {
     final List<dynamic> shuffledList = List.from(flirtLines);
     shuffledList.shuffle(_random);
@@ -96,11 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 30,
                           width: 5,
                           decoration: BoxDecoration(
-                            color: Color(0xFFFF6B9E),
+                            color: const Color(0xFFFF6B9E),
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Text(
                           t.topFlirtLines,
                           style: TextStyle(
@@ -112,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     : Colors.black,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         TextButton(
                           onPressed: () {
                             Navigator.push(
@@ -125,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             'See All',
                             style: TextStyle(
-                              color: Color(0xFFFF6B9E),
+                              color: const Color(0xFFFF6B9E),
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -134,19 +150,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
+                  // Updated top flirt lines section
                   SizedBox(
                     height: AppSizes.scrollableCardSize,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        for (var i = 0; i < 3 && i < flirtLines.length; i++)
+                        for (var i = 0; i < topCategoryLines.length; i++)
                           Padding(
-                            padding: EdgeInsets.only(right: i < 2 ? 16 : 0),
+                            padding: EdgeInsets.only(
+                              right: i < topCategoryLines.length - 1 ? 16 : 0,
+                            ),
                             child: TopFlirtLines(
-                              category: flirtLines[i]['category'],
-                              line: flirtLines[i]['line'],
+                              category: topCategoryLines[i]['category'],
+                              line: topCategoryLines[i]['line'],
                               color: _getColorForCategory(
-                                flirtLines[i]['category'],
+                                topCategoryLines[i]['category'],
                               ),
                             ),
                           ),
@@ -162,11 +181,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 30,
                           width: 5,
                           decoration: BoxDecoration(
-                            color: Color(0xFF5EAFC0),
+                            color: const Color(0xFF5EAFC0),
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Text(
                           'More Flirt Lines',
                           style: TextStyle(
@@ -224,10 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           final randomFlirtLine = getRandomFlirtLine();
-
-          if (randomFlirtLine == null) {
-            return;
-          }
+          if (randomFlirtLine == null) return;
 
           showDialog(
             context: context,
@@ -236,8 +252,8 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           );
         },
-        backgroundColor: Color(0xFFFF6B9E),
-        child: Icon(Icons.favorite, color: Colors.white),
+        backgroundColor: const Color(0xFFFF6B9E),
+        child: const Icon(Icons.favorite, color: Colors.white),
       ),
     );
   }
@@ -245,17 +261,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Color _getColorForCategory(String category) {
     switch (category.toLowerCase()) {
       case 'playful':
-        return Color(0xFF9E8FFF);
+        return const Color(0xFF9E8FFF);
       case 'romantic':
-        return Color(0xFFFF6B9E);
+        return const Color(0xFFFF6B9E);
       case 'cheeky':
-        return Color(0xFFF9BA51);
+        return const Color(0xFFF9BA51);
       case 'intellectual':
-        return Color(0xFF5EAFC0);
+        return const Color(0xFF5EAFC0);
       case 'situational':
-        return Color(0xFF5ED584);
+        return const Color(0xFF5ED584);
       default:
-        return Color(0xFFB57470);
+        return const Color(0xFFB57470);
     }
   }
 }
