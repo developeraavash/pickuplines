@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/helpers/THelperFunc.dart';
 import 'package:pickuplines/core/utils/services/favorite_ser.dart';
@@ -125,10 +126,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ? const Center(child: CircularProgressIndicator())
               : ListView(
                 padding: EdgeInsets.only(
-                  top: 200,
-                  left: 20,
-                  right: 20,
-                  bottom: 100,
+                  top: 150.h,
+                  left: 20.h,
+                  right: 20.h,
+                  bottom: 100.h,
                 ),
                 children: [
                   Padding(
@@ -310,9 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class AppDrawer extends StatelessWidget {
-  const AppDrawer({
-    super.key,
-  });
+  const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {

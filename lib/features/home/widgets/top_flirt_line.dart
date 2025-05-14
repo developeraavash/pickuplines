@@ -23,21 +23,21 @@ class TopFlirtLines extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = Thelperfunc.isDarkMode(context);
-    return Flexible(
-      child: Container(
-        height: 200.h,
-        width: 250.w,
-        padding: EdgeInsets.all(AppSizes.md),
-        decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(AppSizes.md),
-          border: Border.all(color: color.withValues(alpha: 0.3), width: 1.5),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Container(
+      height: 250.h,
+      width: 250.w,
+      padding: EdgeInsets.all(AppSizes.md),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha:  0.1),
+        borderRadius: BorderRadius.circular(AppSizes.md),
+        border: Border.all(color: color.withValues(alpha: 0.3), width: 1.5),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
@@ -59,40 +59,46 @@ class TopFlirtLines extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: AppSizes.sm / 2),
-                Text(
-                  line,
-                  style: TextStyle(
-                    fontSize: AppSizes.fontSizeSmall,
-                    height: 1.4,
-                    color:
-                        isDarkMode ? AppColors.textWhite : Colors.grey.shade800,
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Text(
+                      line,
+                      style: TextStyle(
+                        fontSize: AppSizes.fontSizeSmall,
+                        height: 1.4,
+                        color:
+                            isDarkMode
+                                ? AppColors.textWhite
+                                : Colors.grey.shade800,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.favorite_border,
-                    size: AppSizes.iconSize,
-                    color: color,
-                  ),
-                  onPressed: onFavorite, // Use the callback here
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.favorite_border,
+                  size: AppSizes.iconSize,
+                  color: color,
                 ),
-                IconButton(
-                  icon: Icon(
-                    Icons.copy_outlined,
-                    size: AppSizes.iconSize,
-                    color: color,
-                  ),
-                  onPressed: onCopy, // Use the callback here
+                onPressed: onFavorite,
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.copy_outlined,
+                  size: AppSizes.iconSize,
+                  color: color,
                 ),
-              ],
-            ),
-          ],
-        ),
+                onPressed: onCopy,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
