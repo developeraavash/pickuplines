@@ -20,12 +20,13 @@ dependencies:
   flutter_gen: ^5.10.0
   intl_translation: ^0.20.1
   path_provider: ^2.1.5
+  logger_screen: ^0.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   generate: true
@@ -35,3 +36,9 @@ flutter:
     - assets/data/
     - assets/data/home/
     - assets/data/firstline/
+    - assets/data/firstline/flirt_first_line.json
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icons.jpg"

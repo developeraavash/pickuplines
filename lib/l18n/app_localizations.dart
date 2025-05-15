@@ -251,6 +251,12 @@ abstract class AppLocalizations {
   /// **'No Saved Lines Yet'**
   String get noSavedLinesYet;
 
+  /// No description provided for @noCategoriesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Categories Found'**
+  String get noCategoriesFound;
+
   /// No description provided for @y.
   ///
   /// In en, this message translates to:

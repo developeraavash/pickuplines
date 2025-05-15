@@ -16,7 +16,6 @@ class GirlsFirstLinesScreen extends StatefulWidget {
 
 class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
   List<dynamic> categories = [];
-  List<dynamic> chipCategories = [];
   bool isLoading = true;
   int selectedChipIndex = 0;
 
@@ -27,19 +26,23 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
   }
 
   Future<void> loadCategories() async {
-    final String data = await rootBundle.loadString(
-      'assets/data/firstline/flirt_first_line.json',
-    );
-    final jsonResult = json.decode(data);
-    setState(() {
-      categories = jsonResult['categories'];
-      // Create chip categories from the main categories
-      chipCategories =
-          categories
-              .map((cat) => {'label': cat['title'], 'color': cat['color']})
-              .toList();
-      isLoading = false;
-    });
+    try {
+      final String data = await rootBundle.loadString(
+        'assets/data/firstline/flirt_first_line.json',
+      );
+
+      print("Mero $data");
+      final jsonResult = json.decode(data);
+      setState(() {
+        categories = jsonResult['categories'];
+        isLoading = false;
+      });
+    } catch (e) {
+      debugPrint('Error loading categories: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   IconData _iconFromString(String iconName) {
@@ -59,7 +62,9 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
 
   Color _colorFromHex(String hexColor) {
     hexColor = hexColor.replaceAll('#', '');
-    if (hexColor.length == 6) hexColor = 'FF$hexColor';
+    if (hexColor.length == 6) {
+      hexColor = 'FF$hexColor';
+    }
     return Color(int.parse(hexColor, radix: 16));
   }
 
@@ -76,6 +81,8 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
       body:
           isLoading
               ? const Center(child: CircularProgressIndicator())
+              : categories.isEmpty
+              ? Center(child: Text(t.noCategoriesFound))
               : ListView(
                 padding: EdgeInsets.only(
                   top: AppSizes.appBarHeightDetailPadding,
@@ -84,34 +91,32 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
                   bottom: 100,
                 ),
                 children: [
-                  // Dynamic category chips
+                  // Category chips
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: [
-                          for (int i = 0; i < chipCategories.length; i++)
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: CategoryChip(
-                                label: chipCategories[i]['label'],
-                                color: _colorFromHex(
-                                  chipCategories[i]['color'],
-                                ),
-                                isSelected: selectedChipIndex == i,
-                                onSelected: () {
-                                  setState(() {
-                                    selectedChipIndex = i;
-                                  });
-                                },
-                              ),
+                        children: List.generate(
+                          categories.length,
+                          (index) => Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: CategoryChip(
+                              label: categories[index]['title'],
+                              color: _colorFromHex(categories[index]['color']),
+                              isSelected: selectedChipIndex == index,
+                              onSelected: () {
+                                setState(() {
+                                  selectedChipIndex = index;
+                                });
+                              },
                             ),
-                        ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  // Dynamically generated cards - showing only the selected category
+                  // Selected category card
                   FirstLineCategoryCard(
                     title: categories[selectedChipIndex]['title'],
                     subtitle: categories[selectedChipIndex]['subtitle'],

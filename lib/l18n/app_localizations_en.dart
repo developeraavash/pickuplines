@@ -87,5 +87,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noSavedLinesYet => 'No Saved Lines Yet';
 
   @override
+  String get noCategoriesFound => 'No Categories Found';
+
+  @override
   String get y => 'y';
 }
