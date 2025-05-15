@@ -98,8 +98,6 @@ class _SavedScreenState extends State<SavedScreen> {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final screenWidth = MediaQuery.of(context).size.width;
-    final chipWidth =
-        screenWidth * 0.3; // Adjust chip width based on screen size
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -156,6 +154,7 @@ class _SavedScreenState extends State<SavedScreen> {
                         ),
                         margin: const EdgeInsets.only(bottom: 16),
                         child: FirstLineCategoryCard(
+                          lineAvailable: false,
                           title: line['line'],
                           subtitle: line['category'],
                           icon: _getCategoryIcon(line['category']),

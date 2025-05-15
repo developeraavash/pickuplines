@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pickuplines/app.dart';
+import 'package:pickuplines/main_screen.dart';
 
 class RouteManger {
   static const String home = '/home';

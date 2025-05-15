@@ -87,21 +87,23 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // Add this method for copying to clipboard
-  void _copyToClipboard(String text) {
-    Clipboard.setData(ClipboardData(text: text)).then((_) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Copied to clipboard')));
-    });
+  void _copyToClipboard(String text) async {
+    await Clipboard.setData(ClipboardData(text: text));
+    if (!mounted) return;
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Copied to clipboard')));
   }
 
   void _saveToFavorites(Map<String, dynamic> flirtLine) async {
     try {
       await FavoritesService.saveLine(flirtLine);
+      if (!mounted) return;
       ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Added to favorites')));
+      context,
+      ).showSnackBar(const SnackBar(content: Text('Added to favorites')));
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Failed to save: $e')));

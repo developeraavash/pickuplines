@@ -4,7 +4,7 @@ import 'package:pickuplines/core/constants/app_colors.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/helpers/THelperFunc.dart';
 
-class TopFlirtLines extends StatelessWidget {
+class TopFlirtLines extends StatefulWidget {
   final String category;
   final String line;
   final Color color;
@@ -21,6 +21,45 @@ class TopFlirtLines extends StatelessWidget {
   });
 
   @override
+  State<TopFlirtLines> createState() => _TopFlirtLinesState();
+}
+
+class _TopFlirtLinesState extends State<TopFlirtLines>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  bool isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _scaleAnimation = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween<double>(begin: 1.0, end: 1.2), weight: 50),
+      TweenSequenceItem(tween: Tween<double>(begin: 1.2, end: 1.0), weight: 50),
+    ]).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      isFavorite = !isFavorite;
+      if (isFavorite) {
+        _controller.forward(from: 0);
+      }
+    });
+    widget.onFavorite?.call();
+  }
+
+  @override
   Widget build(BuildContext context) {
     bool isDarkMode = Thelperfunc.isDarkMode(context);
     return Container(
@@ -28,9 +67,12 @@ class TopFlirtLines extends StatelessWidget {
       width: 250.w,
       padding: EdgeInsets.all(AppSizes.md),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: widget.color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppSizes.md),
-        border: Border.all(color: color.withValues(alpha: 0.3), width: 1.5),
+        border: Border.all(
+          color: widget.color.withValues(alpha: 0.3),
+          width: 1.5,
+        ),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,13 +88,13 @@ class TopFlirtLines extends StatelessWidget {
                     // vertical: AppSizes.sm / 2,
                   ),
                   decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.2),
+                    color: widget.color.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(AppSizes.md),
                   ),
                   child: Text(
-                    category,
+                    widget.category,
                     style: TextStyle(
-                      color: color,
+                      color: widget.color,
                       fontWeight: FontWeight.bold,
                       fontSize: AppSizes.sm,
                     ),
@@ -62,7 +104,7 @@ class TopFlirtLines extends StatelessWidget {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Text(
-                      line,
+                      widget.line,
                       style: TextStyle(
                         fontSize: AppSizes.fontSizeSmall,
                         height: 1.2,
@@ -73,7 +115,6 @@ class TopFlirtLines extends StatelessWidget {
                       ),
                     ),
                   ),
-                
                 ),
               ],
             ),
@@ -82,21 +123,24 @@ class TopFlirtLines extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              IconButton(
-                icon: Icon(
-                  Icons.favorite_border,
-                  size: AppSizes.iconSize,
-                  color: color,
+              ScaleTransition(
+                scale: _scaleAnimation,
+                child: IconButton(
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    size: AppSizes.iconSize,
+                    color: isFavorite ? widget.color : widget.color,
+                  ),
+                  onPressed: _toggleFavorite,
                 ),
-                onPressed: onFavorite,
               ),
               IconButton(
                 icon: Icon(
                   Icons.copy_outlined,
                   size: AppSizes.iconSize,
-                  color: color,
+                  color: widget.color,
                 ),
-                onPressed: onCopy,
+                onPressed: widget.onCopy,
               ),
             ],
           ),

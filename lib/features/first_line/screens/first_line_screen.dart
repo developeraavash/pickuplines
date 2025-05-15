@@ -35,6 +35,8 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
       );
       debugPrint('JSON data loaded successfully');
 
+      if (!mounted) return;
+
       final jsonResult = json.decode(data);
       final List<dynamic> categoriesList =
           jsonResult['categories'] as List<dynamic>;
@@ -48,6 +50,7 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
     } catch (e, stackTrace) {
       debugPrint('Error loading categories: $e');
       debugPrint('Stack trace: $stackTrace');
+      if (!mounted) return;
       setState(() {
         categories = [];
         isLoading = false;

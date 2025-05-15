@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pickuplines/core/constants/app_sizes.dart';
-import 'package:pickuplines/core/helpers/THelperFunc.dart';
+ import 'package:pickuplines/core/helpers/THelperFunc.dart';
 import 'package:pickuplines/core/widgets/curved/bottom_clipper.dart';
-import 'package:pickuplines/main.dart';
-
+import 'package:pickuplines/flirt_app.dart';
+ 
 class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String? subtitle;
@@ -49,7 +48,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha:  0.3),
               spreadRadius: 2,
               blurRadius: 6,
               offset: const Offset(0, 3),

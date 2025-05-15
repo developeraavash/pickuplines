@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pickuplines/core/constants/app_sizes.dart';
 
 class CategoryChip extends StatelessWidget {
   final String label;
@@ -49,7 +50,7 @@ class CategoryChip extends StatelessWidget {
           style: TextStyle(
             color: textColor,
             fontWeight: FontWeight.w600,
-            fontSize: 14.sp,
+            fontSize: AppSizes.md / 1.2,
           ),
         ),
       ),
