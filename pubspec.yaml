@@ -37,6 +37,8 @@ flutter:
     - assets/data/home/
     - assets/data/firstline/
     - assets/data/firstline/flirt_first_line.json
+    - assets/icon/
+    - assets/icon/icons.jpg
 
 flutter_icons:
   android: true
