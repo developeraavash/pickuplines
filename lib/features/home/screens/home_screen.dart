@@ -1,19 +1,17 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
 import 'package:pickuplines/core/helpers/THelperFunc.dart';
-import 'package:pickuplines/core/utils/services/favorite_ser.dart';
 import 'package:pickuplines/core/widgets/alertbox.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/screens/first_line_screen.dart';
+import 'package:pickuplines/features/home/controller/flirt_services.dart';
 import 'package:pickuplines/features/home/widgets/drawer_items.dart';
 import 'package:pickuplines/features/home/widgets/top_flirt_line.dart';
 import 'package:pickuplines/features/home/widgets/flirt_details_screen.dart';
 import 'package:pickuplines/features/home/widgets/pointed_quotes_card.dart';
-import 'package:pickuplines/features/home/data/flirt_categories.dart';
 import 'package:pickuplines/l18n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,107 +22,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<dynamic> flirtLines = [];
-  bool isLoading = true;
-  final Random _random = Random();
-  List<dynamic> topCategoryLines = []; // New list for top category lines
-
   @override
   void initState() {
     super.initState();
-    loadFlirtContent();
-  }
-
-  Future<void> loadFlirtContent() async {
-    try {
-      final String response = await rootBundle.loadString(
-        'assets/data/home/flirt_data.json',
-      );
-      final data = await json.decode(response);
-
-      setState(() {
-        flirtLines = [
-          for (final category in flirtCategories)
-            ...data['flirt_content'][category],
-        ];
-
-        // Get one random line from each category for the top section
-        topCategoryLines = _getTopCategoryLines(data['flirt_content']);
-        isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-      debugPrint('Error loading flirt content: $e');
-    }
-  }
-
-  // New method to get one random line from each category
-  List<dynamic> _getTopCategoryLines(Map<String, dynamic> flirtContent) {
-    List<dynamic> result = [];
-    for (final category in flirtCategories) {
-      if (flirtContent[category] != null && flirtContent[category].isNotEmpty) {
-        final randomIndex = _random.nextInt(flirtContent[category].length);
-        result.add(flirtContent[category][randomIndex]);
-      }
-    }
-    // Shuffle to randomize the order
-    result.shuffle(_random);
-    return result;
-  }
-
-  Map<String, dynamic>? getRandomFlirtLine() {
-    if (flirtLines.isEmpty) return null;
-    int randomIndex = _random.nextInt(flirtLines.length);
-    return flirtLines[randomIndex] as Map<String, dynamic>;
-  }
-
-  List<dynamic> getShuffledFlirtLines() {
-    final List<dynamic> shuffledList = List.from(flirtLines);
-    shuffledList.shuffle(_random);
-    return shuffledList;
-  }
-
-  // Add this method for copying to clipboard
-  void _copyToClipboard(String text) async {
-    await Clipboard.setData(ClipboardData(text: text));
-    if (!mounted) return;
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Copied to clipboard')));
-  }
-
-  void _saveToFavorites(Map<String, dynamic> flirtLine) async {
-    try {
-      await FavoritesService.saveLine(flirtLine);
-      if (!mounted) return;
-      ScaffoldMessenger.of(
-      context,
-      ).showSnackBar(const SnackBar(content: Text('Added to favorites')));
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Failed to save: $e')));
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<FlirtServices>().loadFlirtContent();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    final flirtServices = Provider.of<FlirtServices>(context);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CurvedAppBar(
         title: t.firstLine,
         showBackButton: false,
-        showMenuButton: true, // <-- Add this
+        showMenuButton: true,
         height: AppSizes.appBarHeightDetail,
         subtitle: t.weHavePickedSomeLineFor,
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
       body:
-          isLoading
+          flirtServices.isLoading
               ? const Center(child: CircularProgressIndicator())
               : ListView(
                 padding: EdgeInsets.only(
@@ -164,14 +86,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => GirlsFirstLinesScreen(),
+                                builder:
+                                    (context) => const GirlsFirstLinesScreen(),
                               ),
                             );
                           },
                           child: Text(
                             'See All',
-                            style: TextStyle(
-                              color: const Color(0xFFFF6B9E),
+                            style: const TextStyle(
+                              color: Color(0xFFFF6B9E),
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -180,29 +103,38 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  //! Updated top flirt lines section
                   SizedBox(
                     height: AppSizes.scrollableCardSize,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        for (var i = 0; i < topCategoryLines.length; i++)
+                        for (
+                          var i = 0;
+                          i < flirtServices.topCategoryLines.length;
+                          i++
+                        )
                           Padding(
                             padding: EdgeInsets.only(
-                              right: i < topCategoryLines.length - 1 ? 16 : 0,
+                              right:
+                                  i < flirtServices.topCategoryLines.length - 1
+                                      ? 16
+                                      : 0,
                             ),
                             child: TopFlirtLines(
-                              category: topCategoryLines[i]['category'],
-                              line: topCategoryLines[i]['line'],
-                              color: _getColorForCategory(
-                                topCategoryLines[i]['category'],
+                              category:
+                                  flirtServices.topCategoryLines[i]['category'],
+                              line: flirtServices.topCategoryLines[i]['line'],
+                              color: flirtServices.getColorForCategory(
+                                flirtServices.topCategoryLines[i]['category'],
                               ),
                               onCopy:
                                   () => _copyToClipboard(
-                                    topCategoryLines[i]['line'],
+                                    flirtServices.topCategoryLines[i]['line'],
                                   ),
                               onFavorite:
-                                  () => _saveToFavorites(topCategoryLines[i]),
+                                  () => _saveToFavorites(
+                                    flirtServices.topCategoryLines[i],
+                                  ),
                             ),
                           ),
                       ],
@@ -241,15 +173,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.zero,
-                    itemCount: flirtLines.length,
+                    itemCount: flirtServices.flirtLines.length,
                     itemBuilder: (context, index) {
-                      final flirt = flirtLines[index];
+                      final flirt = flirtServices.flirtLines[index];
                       return Column(
                         children: [
                           PointedFlirtCard(
                             title: flirt['line'],
                             author: flirt['category'],
-                            color: _getColorForCategory(flirt['category']),
+                            color: flirtServices.getColorForCategory(
+                              flirt['category'],
+                            ),
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -259,15 +193,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                         flirt: flirt['line'],
                                         author: flirt['category'],
                                         tags: List<String>.from(flirt['tags']),
-                                        color: _getColorForCategory(
-                                          flirt['category'],
-                                        ),
+                                        color: flirtServices
+                                            .getColorForCategory(
+                                              flirt['category'],
+                                            ),
                                       ),
                                 ),
                               );
                             },
                           ),
-                          if (index < flirtLines.length - 1)
+                          if (index < flirtServices.flirtLines.length - 1)
                             const SizedBox(height: 16),
                         ],
                       );
@@ -278,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final randomFlirtLine = getRandomFlirtLine();
+          final randomFlirtLine = flirtServices.getRandomFlirtLine();
           if (randomFlirtLine == null) return;
 
           showDialog(
@@ -294,21 +229,19 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Color _getColorForCategory(String category) {
-    switch (category.toLowerCase()) {
-      case 'playful':
-        return const Color(0xFF9E8FFF);
-      case 'romantic':
-        return const Color(0xFFFF6B9E);
-      case 'cheeky':
-        return const Color(0xFFF9BA51);
-      case 'intellectual':
-        return const Color(0xFF5EAFC0);
-      case 'situational':
-        return const Color(0xFF5ED584);
-      default:
-        return const Color(0xFFB57470);
-    }
+  void _copyToClipboard(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Copied to clipboard')));
+  }
+
+  void _saveToFavorites(Map<String, dynamic> flirt) {
+    // Implementation for saving to favorites
+    // TODO: Implement proper favorites functionality
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Added to favorites')));
   }
 }
 
