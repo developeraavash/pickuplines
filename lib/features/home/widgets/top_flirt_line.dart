@@ -28,7 +28,7 @@ class TopFlirtLines extends StatelessWidget {
       width: 250.w,
       padding: EdgeInsets.all(AppSizes.md),
       decoration: BoxDecoration(
-        color: color.withValues(alpha:  0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppSizes.md),
         border: Border.all(color: color.withValues(alpha: 0.3), width: 1.5),
       ),
@@ -43,7 +43,7 @@ class TopFlirtLines extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: AppSizes.sm,
-                    vertical: AppSizes.sm / 2,
+                    // vertical: AppSizes.sm / 2,
                   ),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.2),
@@ -65,7 +65,7 @@ class TopFlirtLines extends StatelessWidget {
                       line,
                       style: TextStyle(
                         fontSize: AppSizes.fontSizeSmall,
-                        height: 1.4,
+                        height: 1.2,
                         color:
                             isDarkMode
                                 ? AppColors.textWhite
@@ -73,10 +73,12 @@ class TopFlirtLines extends StatelessWidget {
                       ),
                     ),
                   ),
+                
                 ),
               ],
             ),
           ),
+          const SizedBox(height: AppSizes.sizeboxsm),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

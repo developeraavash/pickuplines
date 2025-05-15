@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pickuplines/core/helpers/THelperFunc.dart';
 
 class DrawerItem extends StatelessWidget {
   final IconData icon;
@@ -15,13 +14,11 @@ class DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = Thelperfunc.isDarkMode(context);
+    // bool isDarkMode = Thelperfunc.isDarkMode(context);
     return ListTile(
-      leading: Icon(icon, color: isDarkMode ? Colors.white : Colors.black),
-      title: Text(
-        title,
-        style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
-      ),
+      // leading: Icon(icon, color: isDarkMode ? Colors.white : Colors.black),
+      leading: Icon(icon, color: Colors.white),
+      title: Text(title, style: TextStyle(color: Colors.white)),
       onTap: onTap,
     );
   }

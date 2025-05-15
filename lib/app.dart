@@ -19,7 +19,6 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen(),
     GirlsFirstLinesScreen(),
     SavedScreen(),
-    Center(child: Text("Go to Hell")),
   ];
 
   @override

@@ -22,13 +22,17 @@ class FirstLineCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final backgroundColor = isDark ? Colors.grey[900] : Colors.white;
+    final textColor = isDark ? Colors.white : Colors.black87;
+
     return ConstrainedBox(
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width - 32, // Account for padding
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: backgroundColor,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -46,17 +50,12 @@ class FirstLineCategoryCard extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 color: color,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
+                borderRadius: BorderRadius.circular(20),
               ),
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
               child: Row(
                 children: [
                   Container(
-                    height: 45.h,
-                    width: 45.w,
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12.r),
@@ -98,8 +97,7 @@ class FirstLineCategoryCard extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Lines List
+            // Lines Content
           ],
         ),
       ),
