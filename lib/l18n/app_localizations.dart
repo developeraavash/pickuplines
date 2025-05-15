@@ -95,13 +95,13 @@ abstract class AppLocalizations {
     Locale('es')
   ];
 
-  /// No description provided for @firstLineForHer.
+  /// Title for the first line section
   ///
   /// In en, this message translates to:
   /// **'First line for her'**
   String get firstLineForHer;
 
-  /// No description provided for @conversationStarterThatConnect.
+  /// Subtitle for conversation starters
   ///
   /// In en, this message translates to:
   /// **'Conversation Starter That Connect'**
@@ -257,11 +257,71 @@ abstract class AppLocalizations {
   /// **'No Categories Found'**
   String get noCategoriesFound;
 
-  /// No description provided for @y.
+  /// The name of the application
   ///
   /// In en, this message translates to:
-  /// **'y'**
-  String get y;
+  /// **'Pickup Lines'**
+  String get appName;
+
+  /// The tagline shown in the drawer
+  ///
+  /// In en, this message translates to:
+  /// **'Find the perfect line for any situation'**
+  String get appTagline;
+
+  /// Home navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// Favorites navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites'**
+  String get favorites;
+
+  /// Settings navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// Rate app navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Rate 5 Star'**
+  String get rateFiveStar;
+
+  /// Share app navigation item
+  ///
+  /// In en, this message translates to:
+  /// **'Share App'**
+  String get shareApp;
+
+  /// Message shown when sharing the app
+  ///
+  /// In en, this message translates to:
+  /// **'Check out this amazing Pickup Lines app!'**
+  String get shareMessage;
+
+  /// Dark mode setting option
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkMode;
+
+  /// Language setting option
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// Close button text
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

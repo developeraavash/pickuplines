@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pickuplines/core/theme/theme.dart';
+import 'package:pickuplines/core/utils/services/preferences_service.dart';
 import 'package:pickuplines/l18n/app_localizations.dart';
 import 'package:pickuplines/routes/app_routes.dart';
 
@@ -14,18 +15,38 @@ class FlirtApp extends StatefulWidget {
 
 class _FlirtAppState extends State<FlirtApp> {
   Locale? _locale;
-  ThemeMode _themeMode = ThemeMode.light;
+  ThemeMode _themeMode = ThemeMode.system;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    final savedTheme = await PreferencesService.getThemeMode();
+    final savedLanguage = await PreferencesService.getLanguage();
+
+    setState(() {
+      _themeMode = savedTheme;
+      if (savedLanguage != null) {
+        _locale = Locale(savedLanguage);
+      }
+    });
+  }
 
   void setLocale(Locale locale) {
     setState(() {
       _locale = locale;
     });
+    PreferencesService.saveLanguage(locale.languageCode);
   }
 
   void setThemeMode(ThemeMode mode) {
     setState(() {
       _themeMode = mode;
     });
+    PreferencesService.saveThemeMode(mode);
   }
 
   @override
@@ -49,7 +70,7 @@ class _FlirtAppState extends State<FlirtApp> {
       ],
       supportedLocales: const [
         Locale('en'), // English
-        Locale('np'), // Spanish
+        Locale('es'), // Spanish
       ],
       darkTheme: CAppTheme.darkTheme,
       theme: CAppTheme.lightTheme,
@@ -67,7 +88,6 @@ class _FlirtAppState extends State<FlirtApp> {
   }
 }
 
-// InheritedWidget to provide setLocale and setThemeMode
 class LocaleAndThemeProvider extends InheritedWidget {
   final void Function(Locale) setLocale;
   final void Function(ThemeMode) setThemeMode;

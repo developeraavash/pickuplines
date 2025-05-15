@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
- import 'package:pickuplines/core/helpers/THelperFunc.dart';
+import 'package:pickuplines/core/helpers/THelperFunc.dart';
 import 'package:pickuplines/core/widgets/curved/bottom_clipper.dart';
-import 'package:pickuplines/flirt_app.dart';
- 
+
 class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String? subtitle;
@@ -48,7 +47,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha:  0.3),
+              color: Colors.black.withValues(alpha: 0.3),
               spreadRadius: 2,
               blurRadius: 6,
               offset: const Offset(0, 3),
@@ -58,7 +57,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
 
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
+            padding: const EdgeInsets.fromLTRB(1, 10, 20, 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -69,12 +68,15 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
                     onPressed: () => Navigator.pop(context),
                   )
                 else if (showMenuButton)
-                  Builder(
-                    builder:
-                        (context) => IconButton(
-                          icon: const Icon(Icons.menu, color: Colors.white),
-                          onPressed: () => Scaffold.of(context).openDrawer(),
-                        ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Builder(
+                      builder:
+                          (context) => IconButton(
+                            icon: const Icon(Icons.menu, color: Colors.white),
+                            onPressed: () => Scaffold.of(context).openDrawer(),
+                          ),
+                    ),
                   ),
                 Expanded(
                   child: Column(
@@ -105,43 +107,6 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ),
                     ],
                   ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Theme.of(context).brightness == Brightness.dark
-                        ? Icons.light_mode
-                        : Icons.dark_mode,
-                    color: Colors.white,
-                  ),
-                  tooltip: 'Toggle Theme',
-                  onPressed: () {
-                    final provider = LocaleAndThemeProvider.of(context);
-                    if (provider != null) {
-                      provider.setThemeMode(
-                        provider.themeMode == ThemeMode.dark
-                            ? ThemeMode.light
-                            : ThemeMode.dark,
-                      );
-                    }
-                  },
-                ),
-                // Language selector
-                PopupMenuButton<Locale>(
-                  icon: const Icon(Icons.language, color: Colors.white),
-                  onSelected: (locale) {
-                    LocaleAndThemeProvider.of(context)?.setLocale(locale);
-                  },
-                  itemBuilder:
-                      (context) => const [
-                        PopupMenuItem(
-                          value: Locale('en'),
-                          child: Text('English'),
-                        ),
-                        PopupMenuItem(
-                          value: Locale('es'),
-                          child: Text('Español'),
-                        ),
-                      ],
                 ),
               ],
             ),

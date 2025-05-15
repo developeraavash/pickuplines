@@ -1,6 +1,85 @@
 {
-"firstLineForHer":"unko lagi pahilo sabda",
-"conversationStarterThatConnect":"Conversation starter jasle connect garxa"
-
-
+    "@@locale": "es",
+    "firstLineForHer": "Primera línea para ella",
+    "conversationStarterThatConnect": "Iniciadores de conversación que conectan",
+    "appTitle": "Frases Diarias",
+    "appSubtitle": "Hemos elegido algunas frases para ti",
+    "firstDateSection": "Primera cita con ella",
+    "seeAll": "Ver todo",
+    "quotesSection": "Frases inspiradoras",
+    "firstLineforHer": "Primeras líneas para ella",
+    "genuine": "Genuino",
+    "playful": "Juguetón",
+    "deep": "Profundo",
+    "funny": "Divertido",
+    "coffeeShop": "Cafetería",
+    "casualAndConfortableSetting": "Ambiente casual y cómodo",
+    "dinnerDate": "Cena romántica",
+    "forForRestaurantSetting": "Para ambiente de restaurante",
+    "artGallery": "Galería de arte",
+    "forTheCreativeConnection": "Para la conexión creativa",
+    "walkInThePark": "Paseo por el parque",
+    "casualOutdoorConversation": "Conversación casual al aire libre",
+    "firstLine": "Frases de conquista",
+    "weHavePickedSomeLineFor": "Hemos elegido algunas frases para ti",
+    "topFlirtLines": "Mejores frases",
+    "savedLines": "Frases guardadas",
+    "yourFavoritePickupLines": "Tus frases favoritas",
+    "noSavedLinesYet": "Aún no hay frases guardadas",
+    "noCategoriesFound": "No se encontraron categorías",
+    
+    "appName": "Líneas de Conquista",
+    "@appName": {
+        "description": "The name of the application"
+    },
+    
+    "appTagline": "Encuentra la línea perfecta para cada situación",
+    "@appTagline": {
+        "description": "The tagline shown in the drawer"
+    },
+    
+    "home": "Inicio",
+    "@home": {
+        "description": "Home navigation item"
+    },
+    
+    "favorites": "Favoritos",
+    "@favorites": {
+        "description": "Favorites navigation item"
+    },
+    
+    "settings": "Ajustes",
+    "@settings": {
+        "description": "Settings navigation item"
+    },
+    
+    "rateFiveStar": "Califica 5 Estrellas",
+    "@rateFiveStar": {
+        "description": "Rate app navigation item"
+    },
+    
+    "shareApp": "Compartir App",
+    "@shareApp": {
+        "description": "Share app navigation item"
+    },
+    
+    "shareMessage": "¡Mira esta increíble aplicación de piropos!",
+    "@shareMessage": {
+        "description": "Message shown when sharing the app"
+    },
+    
+    "darkMode": "Modo Oscuro",
+    "@darkMode": {
+        "description": "Dark mode setting option"
+    },
+    
+    "language": "Idioma",
+    "@language": {
+        "description": "Language setting option"
+    },
+    
+    "close": "Cerrar",
+    "@close": {
+        "description": "Close button text"
+    }
 }

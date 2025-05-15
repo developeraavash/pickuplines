@@ -1,35 +1,94 @@
 {
-     "firstLineForHer":"First line for her"
-     ,"conversationStarterThatConnect":"Conversation Starter That Connect",
-       "appTitle": "Daily Quotes",
-  "appSubtitle": "We've picked some quotes for You",
-  "firstDateSection": "First Date with Her",
-  "seeAll": "See All",
-  "quotesSection": "Inspiring Quotes",
-  "firstLineforHer": "First Lines for Her",
-  "genuine": "Genuine",
-  "playful": "Playful",
-  "deep": "Deep",
-  "funny": "Funny",
-  "coffeeShop": "Coffee Shop",
-  "casualAndConfortableSetting": "Casual and comfortable setting",
-  "dinnerDate": "Dinner Date",
-  "forForRestaurantSetting": "For a restaurant setting",
-  "artGallery": "Art Gallery",
-  "forTheCreativeConnection": "For the creative connection",
-  "walkInThePark": "Walk in the Park",
-  "casualOutdoorConversation": "Casual outdoor conversation",
-  "firstLine":"Flirt Lines",
-  "weHavePickedSomeLineFor":"We have picked some lines for You",
-  "topFlirtLines":"Top Flirt Lines",
-  "savedLines":"Saved Lines",
-  "yourFavoritePickupLines":"Your Favorite Pickup Lines",
-  "noSavedLinesYet":"No Saved Lines Yet",
-  "noCategoriesFound":"No Categories Found",
-
-
-  "y":"y"
-
+    "@@locale": "en",
     
+    "firstLineForHer": "First line for her",
+    "@firstLineForHer": {
+        "description": "Title for the first line section"
+    },
+    
+    "conversationStarterThatConnect": "Conversation Starter That Connect",
+    "@conversationStarterThatConnect": {
+        "description": "Subtitle for conversation starters"
+    },
+    
+    "appTitle": "Daily Quotes",
+    "appSubtitle": "We've picked some quotes for You",
+    "firstDateSection": "First Date with Her",
+    "seeAll": "See All",
+    "quotesSection": "Inspiring Quotes",
+    "firstLineforHer": "First Lines for Her",
+    "genuine": "Genuine",
+    "playful": "Playful",
+    "deep": "Deep",
+    "funny": "Funny",
+    "coffeeShop": "Coffee Shop",
+    "casualAndConfortableSetting": "Casual and comfortable setting",
+    "dinnerDate": "Dinner Date",
+    "forForRestaurantSetting": "For a restaurant setting",
+    "artGallery": "Art Gallery",
+    "forTheCreativeConnection": "For the creative connection",
+    "walkInThePark": "Walk in the Park",
+    "casualOutdoorConversation": "Casual outdoor conversation",
+    "firstLine":"Flirt Lines",
+    "weHavePickedSomeLineFor":"We have picked some lines for You",
+    "topFlirtLines":"Top Flirt Lines",
+    "savedLines":"Saved Lines",
+    "yourFavoritePickupLines":"Your Favorite Pickup Lines",
+    "noSavedLinesYet":"No Saved Lines Yet",
+    "noCategoriesFound":"No Categories Found",
 
+    "appName": "Pickup Lines",
+    "@appName": {
+        "description": "The name of the application"
+    },
+    
+    "appTagline": "Find the perfect line for any situation",
+    "@appTagline": {
+        "description": "The tagline shown in the drawer"
+    },
+    
+    "home": "Home",
+    "@home": {
+        "description": "Home navigation item"
+    },
+    
+    "favorites": "Favorites",
+    "@favorites": {
+        "description": "Favorites navigation item"
+    },
+    
+    "settings": "Settings",
+    "@settings": {
+        "description": "Settings navigation item"
+    },
+    
+    "rateFiveStar": "Rate 5 Star",
+    "@rateFiveStar": {
+        "description": "Rate app navigation item"
+    },
+    
+    "shareApp": "Share App",
+    "@shareApp": {
+        "description": "Share app navigation item"
+    },
+    
+    "shareMessage": "Check out this amazing Pickup Lines app!",
+    "@shareMessage": {
+        "description": "Message shown when sharing the app"
+    },
+    
+    "darkMode": "Dark Mode",
+    "@darkMode": {
+        "description": "Dark mode setting option"
+    },
+    
+    "language": "Language",
+    "@language": {
+        "description": "Language setting option"
+    },
+    
+    "close": "Close",
+    "@close": {
+        "description": "Close button text"
+    }
 }

@@ -90,5 +90,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noCategoriesFound => 'No Categories Found';
 
   @override
-  String get y => 'y';
+  String get appName => 'Pickup Lines';
+
+  @override
+  String get appTagline => 'Find the perfect line for any situation';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get favorites => 'Favorites';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get rateFiveStar => 'Rate 5 Star';
+
+  @override
+  String get shareApp => 'Share App';
+
+  @override
+  String get shareMessage => 'Check out this amazing Pickup Lines app!';
+
+  @override
+  String get darkMode => 'Dark Mode';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get close => 'Close';
 }
