@@ -2,6 +2,10 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 
+import 'package:logger/logger.dart';
+
+final Logger logger = Logger();
+
 Future<void> uploadCategoryQuestions(
   String language,
   String type,
@@ -11,7 +15,7 @@ Future<void> uploadCategoryQuestions(
   int order,
 ) async {
   try {
-    print('Loading JSON from: $filePath');
+    logger.w('Loading JSON from: $filePath');
     final String jsonContent = await rootBundle.loadString(filePath);
     final Map<String, dynamic> jsonData = json.decode(jsonContent);
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -23,7 +27,7 @@ Future<void> uploadCategoryQuestions(
 
     // Process each category
     for (var category in flirtContent.keys) {
-      print('Processing category: $category');
+      logger.w('Processing category: $category');
       final lines = flirtContent[category] as List;
 
       for (var data in lines) {
@@ -43,7 +47,7 @@ Future<void> uploadCategoryQuestions(
           // Commit batch when it reaches 500 documents (Firestore limit)
           if (documentsInBatch >= 500) {
             await batch.commit();
-            print('Committed batch of $documentsInBatch documents');
+            logger.w('Committed batch of $documentsInBatch documents');
             documentsInBatch = 0;
           }
         }
@@ -53,63 +57,57 @@ Future<void> uploadCategoryQuestions(
     // Commit any remaining documents
     if (documentsInBatch > 0) {
       await batch.commit();
-      print('Committed final batch of $documentsInBatch documents');
+      logger.w('Committed final batch of $documentsInBatch documents');
     }
 
-    print('Successfully uploaded data from $filePath');
+    logger.w('Successfully uploaded data from $filePath');
   } catch (e, stack) {
-    print('Upload error for $filePath: $e');
-    print('Stack trace: $stack');
+    logger.w('Upload error for $filePath: $e');
+    logger.w('Stack trace: $stack');
   }
 }
 
-Future<void> uploadCategoryQuestions2(
-  String language,
-  String type,
-  String category,
-  String collection,
-  String filePath,
-  int order,
-) async {
-  // Using the same implementation as uploadCategoryQuestions for consistency
-  return uploadCategoryQuestions(
-    language,
-    type,
-    category,
-    collection,
-    filePath,
-    order,
-  );
+Future<void> uploadCategoryData() async {
+  try {
+    logger.w('Loading category data from a2.json');
+    final String jsonContent = await rootBundle.loadString(
+      'assets/data/all/a2.json',
+    );
+    final Map<String, dynamic> jsonData = json.decode(jsonContent);
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final batch = firestore.batch();
+
+    // Get the categories array
+    final List<dynamic> categories = jsonData['categories'];
+
+    for (var category in categories) {
+      final docRef = firestore.collection('first_line_categories').doc();
+      batch.set(docRef, category);
+    }
+
+    await batch.commit();
+    logger.w(
+      'Successfully uploaded ${categories.length} categories to Firebase',
+    );
+  } catch (e, stack) {
+    logger.w('Error uploading categories: $e');
+    logger.w('Stack trace: $stack');
+  }
 }
 
-Future<void> uploadAllDCategoryQuestionsInEnglish() async {
+Future<void> uploadAllData() async {
   try {
-    print("Starting upload to Firebase...");
+    logger.w("Starting data upload to Firebase...");
 
-    // Upload English content
-    String filePath = 'assets/data/all/a1.json';
-    await uploadCategoryQuestions(
-      'en',
-      'localization',
-      "A",
-      "data",
-      filePath,
-      1,
-    );
+    // Upload flirt lines
+    // await uploadCategoryQuestions();
 
-    String filePath1 = 'assets/data/all/a2.json';
-    await uploadCategoryQuestions2(
-      'en',
-      'localization',
-      "A",
-      "data",
-      filePath1,
-      2,
-    );
+    // Upload categories
+    await uploadCategoryData();
 
-    print("Upload completed successfully");
+    logger.w("All data uploaded successfully");
   } catch (e, stack) {
-    print('Upload error: $e');
-    print('Stack trace: $stack');
+    logger.w('Upload error: $e');
+    logger.w('Stack trace: $stack');
   }
 }

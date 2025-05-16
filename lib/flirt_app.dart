@@ -22,7 +22,7 @@ class _FlirtAppState extends State<FlirtApp> {
   void initState() {
     super.initState();
     _loadPreferences();
-    uploadAllDCategoryQuestionsInEnglish();
+    uploadAllData();
   }
 
   Future<void> _loadPreferences() async {

@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +7,7 @@ import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/widgets/category_chip.dart';
 import 'package:pickuplines/features/first_line/widgets/first_line_category_card.dart';
 import 'package:pickuplines/l18n/app_localizations.dart';
+import 'package:pickuplines/aLoadFunc/upload_data.dart';
 
 class GirlsFirstLinesScreen extends StatefulWidget {
   const GirlsFirstLinesScreen({super.key});
@@ -19,6 +20,7 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
   List<dynamic> categories = [];
   bool isLoading = true;
   int selectedChipIndex = 0;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -29,17 +31,15 @@ class _GirlsFirstLinesScreenState extends State<GirlsFirstLinesScreen> {
 
   Future<void> loadCategories() async {
     try {
-      debugPrint('Loading categories...');
-      final String data = await rootBundle.loadString(
-        'assets/data/firstline/flirt_first_line.json',
-      );
-      debugPrint('JSON data loaded successfully');
+      debugPrint('Loading categories from Firebase...');
+      final QuerySnapshot snapshot =
+          await _firestore.collection('first_line_categories').get();
+      debugPrint('Firestore documents count: ${snapshot.docs.length}');
 
       if (!mounted) return;
 
-      final jsonResult = json.decode(data);
       final List<dynamic> categoriesList =
-          jsonResult['categories'] as List<dynamic>;
+          snapshot.docs.map((doc) => doc.data()).toList();
       debugPrint('Found ${categoriesList.length} categories');
 
       setState(() {

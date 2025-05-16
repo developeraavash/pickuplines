@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
- import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FlirtServices with ChangeNotifier {
   List<dynamic> _flirtLines = [];
@@ -18,10 +18,8 @@ class FlirtServices with ChangeNotifier {
       _isLoading = true;
       notifyListeners();
 
-      print('Loading flirt content from Firestore...');
       final QuerySnapshot snapshot =
           await _firestore.collection('flirt_content').get();
-      print('Firestore documents count: ${snapshot.docs.length}');
 
       final List<String> categories = [
         'playful',
@@ -37,7 +35,6 @@ class FlirtServices with ChangeNotifier {
       for (var doc in snapshot.docs) {
         final data = doc.data() as Map<String, dynamic>;
         final category = data['category'] as String;
-        print('Processing document with category: $category');
 
         if (categories.contains(category.toLowerCase())) {
           if (!categoryData.containsKey(category.toLowerCase())) {
@@ -48,18 +45,12 @@ class FlirtServices with ChangeNotifier {
         }
       }
 
-      print('Total flirt lines loaded: ${_flirtLines.length}');
-      print('Categories found: ${categoryData.keys.join(', ')}');
-
       // Get one random line from each category for the top section
       _topCategoryLines = _getTopCategoryLinesFromCategories(categoryData);
-      print('Top category lines count: ${_topCategoryLines.length}');
 
       _isLoading = false;
       notifyListeners();
     } catch (e, stack) {
-      print('Error loading flirt content: $e');
-      print('Stack trace: $stack');
       _isLoading = false;
       notifyListeners();
     }
