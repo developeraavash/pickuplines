@@ -57,7 +57,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
 
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(1, 10, 20, 30),
+            padding: const EdgeInsets.fromLTRB(10, 10, 20, 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

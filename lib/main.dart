@@ -1,12 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pickuplines/firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:pickuplines/flirt_app.dart';
 import 'package:pickuplines/features/home/controller/flirt_services.dart';
 import 'package:pickuplines/features/first_line/controller/first_line_controller.dart';
 import 'package:pickuplines/features/favourite/controller/favorites_controller.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
       providers: [

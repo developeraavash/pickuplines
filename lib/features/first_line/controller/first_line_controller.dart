@@ -19,7 +19,7 @@ class FirstLineController with ChangeNotifier {
   Future<void> loadCategories() async {
     try {
       final String data = await rootBundle.loadString(
-        'assets/data/firstline/flirt_first_line.json',
+        'assets/data/all/a2.json',
       );
 
       final jsonResult = json.decode(data);

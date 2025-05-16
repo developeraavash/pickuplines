@@ -1,13 +1,13 @@
-import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FlirtServices with ChangeNotifier {
   List<dynamic> _flirtLines = [];
   List<dynamic> _topCategoryLines = [];
   bool _isLoading = true;
   final Random _random = Random();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   List<dynamic> get flirtLines => _flirtLines;
   List<dynamic> get topCategoryLines => _topCategoryLines;
@@ -15,10 +15,14 @@ class FlirtServices with ChangeNotifier {
 
   Future<void> loadFlirtContent() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/data/home/flirt_data.json',
-      );
-      final data = await json.decode(response);
+      _isLoading = true;
+      notifyListeners();
+
+      print('Loading flirt content from Firestore...');
+      final QuerySnapshot snapshot =
+          await _firestore.collection('flirt_content').get();
+      print('Firestore documents count: ${snapshot.docs.length}');
+
       final List<String> categories = [
         'playful',
         'romantic',
@@ -27,38 +31,50 @@ class FlirtServices with ChangeNotifier {
         'situational',
       ];
 
+      Map<String, List<dynamic>> categoryData = {};
       _flirtLines = [];
-      for (final category in categories) {
-        if (data['flirt_content'][category] != null) {
-          _flirtLines.addAll(data['flirt_content'][category]);
+
+      for (var doc in snapshot.docs) {
+        final data = doc.data() as Map<String, dynamic>;
+        final category = data['category'] as String;
+        print('Processing document with category: $category');
+
+        if (categories.contains(category.toLowerCase())) {
+          if (!categoryData.containsKey(category.toLowerCase())) {
+            categoryData[category.toLowerCase()] = [];
+          }
+          categoryData[category.toLowerCase()]!.add(data);
+          _flirtLines.add(data);
         }
       }
 
+      print('Total flirt lines loaded: ${_flirtLines.length}');
+      print('Categories found: ${categoryData.keys.join(', ')}');
+
       // Get one random line from each category for the top section
-      _topCategoryLines = _getTopCategoryLines(data['flirt_content']);
+      _topCategoryLines = _getTopCategoryLinesFromCategories(categoryData);
+      print('Top category lines count: ${_topCategoryLines.length}');
+
       _isLoading = false;
       notifyListeners();
-    } catch (e) {
-      debugPrint('Error loading flirt content: $e');
+    } catch (e, stack) {
+      print('Error loading flirt content: $e');
+      print('Stack trace: $stack');
       _isLoading = false;
       notifyListeners();
     }
   }
 
-  List<dynamic> _getTopCategoryLines(Map<String, dynamic> flirtContent) {
+  List<dynamic> _getTopCategoryLinesFromCategories(
+    Map<String, List<dynamic>> categoryData,
+  ) {
     List<dynamic> result = [];
-    final categories = [
-      'playful',
-      'romantic',
-      'cheeky',
-      'intellectual',
-      'situational',
-    ];
+    final categories = categoryData.keys.toList();
 
     for (final category in categories) {
-      if (flirtContent[category] != null && flirtContent[category].isNotEmpty) {
-        final randomIndex = _random.nextInt(flirtContent[category].length);
-        result.add(flirtContent[category][randomIndex]);
+      if (categoryData[category]!.isNotEmpty) {
+        final randomIndex = _random.nextInt(categoryData[category]!.length);
+        result.add(categoryData[category]![randomIndex]);
       }
     }
     result.shuffle(_random);

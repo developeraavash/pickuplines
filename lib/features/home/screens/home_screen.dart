@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pickuplines/core/utils/services/favorite_ser.dart';
 import 'package:pickuplines/features/home/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:pickuplines/core/constants/app_sizes.dart';
- import 'package:pickuplines/core/widgets/alertbox.dart';
+import 'package:pickuplines/core/widgets/alertbox.dart';
 import 'package:pickuplines/core/widgets/curved/curved_appbar.dart';
 import 'package:pickuplines/features/first_line/screens/first_line_screen.dart';
 import 'package:pickuplines/features/home/controller/flirt_services.dart';
- import 'package:pickuplines/features/home/widgets/top_flirt_line.dart';
+import 'package:pickuplines/features/home/widgets/top_flirt_line.dart';
 import 'package:pickuplines/features/home/widgets/flirt_details_screen.dart';
 import 'package:pickuplines/features/home/widgets/pointed_quotes_card.dart';
 import 'package:pickuplines/l18n/app_localizations.dart';
@@ -42,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
         showMenuButton: true,
         height: AppSizes.appBarHeightDetail,
         subtitle: t.weHavePickedSomeLineFor,
+     
       ),
       drawer: const AppDrawer(),
       body:
@@ -235,11 +237,18 @@ class _HomeScreenState extends State<HomeScreen> {
     ).showSnackBar(const SnackBar(content: Text('Copied to clipboard')));
   }
 
-  void _saveToFavorites(Map<String, dynamic> flirt) {
-    // Implementation for saving to favorites
-    // TODO: Implement proper favorites functionality
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Added to favorites')));
+  void _saveToFavorites(Map<String, dynamic> flirt) async {
+    try {
+      await FavoritesService.saveLine(flirt);
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Added to favorites')));
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to save to favorites')),
+      );
+    }
   }
 }

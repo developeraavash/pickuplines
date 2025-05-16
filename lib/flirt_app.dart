@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pickuplines/aLoadFunc/upload_data.dart';
 import 'package:pickuplines/core/theme/theme.dart';
 import 'package:pickuplines/core/utils/services/preferences_service.dart';
 import 'package:pickuplines/l18n/app_localizations.dart';
@@ -21,6 +22,7 @@ class _FlirtAppState extends State<FlirtApp> {
   void initState() {
     super.initState();
     _loadPreferences();
+    uploadAllDCategoryQuestionsInEnglish();
   }
 
   Future<void> _loadPreferences() async {

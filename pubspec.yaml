@@ -24,6 +24,7 @@ dependencies:
   url_launcher: ^6.3.1
   share_plus: ^11.0.0
   shared_preferences: ^2.5.3
+  cloud_firestore: ^5.6.7
 
 dev_dependencies:
   flutter_test:
@@ -36,12 +37,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/data/
     - assets/data/home/
-    - assets/data/firstline/
-    - assets/data/firstline/flirt_first_line.json
-    - assets/icon/
-    - assets/icon/icons.jpg
+    - assets/data/all/
 
 flutter_icons:
   android: true
