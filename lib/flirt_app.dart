@@ -6,6 +6,8 @@ import 'package:pickuplines/core/theme/theme.dart';
 import 'package:pickuplines/core/utils/services/preferences_service.dart';
 import 'package:pickuplines/l18n/app_localizations.dart';
 import 'package:pickuplines/routes/app_routes.dart';
+import 'package:provider/provider.dart';
+import 'package:pickuplines/features/first_line/controller/first_line_controller.dart';
 
 class FlirtApp extends StatefulWidget {
   const FlirtApp({super.key});
@@ -17,12 +19,18 @@ class FlirtApp extends StatefulWidget {
 class _FlirtAppState extends State<FlirtApp> {
   Locale? _locale;
   ThemeMode _themeMode = ThemeMode.system;
+  final firstLineController = FirstLineController();
 
   @override
   void initState() {
     super.initState();
     _loadPreferences();
-    uploadAllData();
+    _initializeData();
+  }
+
+  Future<void> _initializeData() async {
+    await uploadAllData(); // Upload data to Firebase
+    await firstLineController.loadCategories(); // Load categories after upload
   }
 
   Future<void> _loadPreferences() async {
@@ -60,32 +68,39 @@ class _FlirtAppState extends State<FlirtApp> {
       ),
     );
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      locale: _locale,
-      themeMode: _themeMode,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<FirstLineController>(
+          create: (_) => firstLineController,
+        ),
       ],
-      supportedLocales: const [
-        Locale('en'), // English
-        Locale('es'), // Spanish
-      ],
-      darkTheme: CAppTheme.darkTheme,
-      theme: CAppTheme.lightTheme,
-      initialRoute: RouteManger.home,
-      onGenerateRoute: RouteManger.generateRoute,
-      builder: (context, child) {
-        return LocaleAndThemeProvider(
-          setLocale: setLocale,
-          setThemeMode: setThemeMode,
-          themeMode: _themeMode,
-          child: child!,
-        );
-      },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        locale: _locale,
+        themeMode: _themeMode,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en'), // English
+          Locale('es'), // Spanish
+        ],
+        darkTheme: CAppTheme.darkTheme,
+        theme: CAppTheme.lightTheme,
+        initialRoute: RouteManger.home,
+        onGenerateRoute: RouteManger.generateRoute,
+        builder: (context, child) {
+          return LocaleAndThemeProvider(
+            setLocale: setLocale,
+            setThemeMode: setThemeMode,
+            themeMode: _themeMode,
+            child: child!,
+          );
+        },
+      ),
     );
   }
 }

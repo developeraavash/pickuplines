@@ -1,11 +1,11 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirstLineController with ChangeNotifier {
   List<dynamic> _categories = [];
   bool _isLoading = true;
   int _selectedIndex = 0;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   List<dynamic> get categories => _categories;
   bool get isLoading => _isLoading;
@@ -16,21 +16,26 @@ class FirstLineController with ChangeNotifier {
     notifyListeners();
   }
 
+  void setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
   Future<void> loadCategories() async {
     try {
-      final String data = await rootBundle.loadString(
-        'assets/data/all/a2.json',
-      );
+      debugPrint('Loading categories from Firebase...');
+      final QuerySnapshot snapshot =
+          await _firestore.collection('first_line_categories').get();
 
-      final jsonResult = json.decode(data);
       final List<dynamic> categoriesList =
-          jsonResult['categories'] as List<dynamic>;
+          snapshot.docs.map((doc) => doc.data()).toList();
+      debugPrint('Found ${categoriesList.length} categories from Firebase');
 
       _categories = categoriesList;
       _isLoading = false;
       notifyListeners();
     } catch (e) {
-      debugPrint('Error loading categories: $e');
+      debugPrint('Error loading categories from Firebase: $e');
       _categories = [];
       _isLoading = false;
       notifyListeners();

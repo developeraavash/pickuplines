@@ -1,40 +1,41 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FavoritesService {
-  static Future<File> _getFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    return File('${directory.path}/favorites.json');
-  }
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static const String _collection = 'favorites';
 
   static Future<List<Map<String, dynamic>>> getSavedLines() async {
     try {
-      final file = await _getFile();
-      if (await file.exists()) {
-        final contents = await file.readAsString();
-        return List<Map<String, dynamic>>.from(json.decode(contents));
-      }
-      return [];
+      final QuerySnapshot snapshot =
+          await _firestore.collection(_collection).get();
+      return snapshot.docs
+          .map((doc) => {...doc.data() as Map<String, dynamic>, 'id': doc.id})
+          .toList();
     } catch (e) {
+      print('Error getting saved lines: $e');
       return [];
     }
   }
 
   static Future<void> saveLine(Map<String, dynamic> line) async {
-    final savedLines = await getSavedLines();
-    // Check if already saved
-    if (!savedLines.any((l) => l['id'] == line['id'])) {
-      savedLines.add(line);
-      final file = await _getFile();
-      await file.writeAsString(json.encode(savedLines));
+    try {
+      // Create a new document with auto-generated ID
+      await _firestore.collection(_collection).add({
+        ...line,
+        'savedAt': FieldValue.serverTimestamp(),
+      });
+    } catch (e) {
+      print('Error saving line: $e');
+      rethrow;
     }
   }
 
   static Future<void> removeLine(String id) async {
-    final savedLines = await getSavedLines();
-    savedLines.removeWhere((line) => line['id'] == id);
-    final file = await _getFile();
-    await file.writeAsString(json.encode(savedLines));
+    try {
+      await _firestore.collection(_collection).doc(id).delete();
+    } catch (e) {
+      print('Error removing line: $e');
+      rethrow;
+    }
   }
 }

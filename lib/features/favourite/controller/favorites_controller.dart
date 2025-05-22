@@ -19,6 +19,9 @@ class FavoritesController with ChangeNotifier {
 
   Future<void> loadSavedLines() async {
     try {
+      _isLoading = true;
+      notifyListeners();
+
       final lines = await FavoritesService.getSavedLines();
 
       // Create categories from saved lines
@@ -32,7 +35,9 @@ class FavoritesController with ChangeNotifier {
       }
 
       // Create chip categories
-      final List<Map<String, dynamic>> chips = [];
+      final List<Map<String, dynamic>> chips = [
+        {'label': 'All', 'color': _getCategoryColor('all')},
+      ];
       categorized.forEach((category, categoryLines) {
         chips.add({'label': category, 'color': _getCategoryColor(category)});
       });
@@ -70,6 +75,8 @@ class FavoritesController with ChangeNotifier {
 
   Color _getCategoryColor(String category) {
     switch (category.toLowerCase()) {
+      case 'all':
+        return const Color(0xFF9E8FFF);
       case 'playful':
         return const Color(0xFF9E8FFF);
       case 'romantic':
@@ -83,5 +90,15 @@ class FavoritesController with ChangeNotifier {
       default:
         return const Color(0xFFB57470);
     }
+  }
+
+  List<Map<String, dynamic>> getCurrentCategoryLines() {
+    if (_selectedChipIndex == 0 || _chipCategories.isEmpty) {
+      return _savedLines;
+    }
+    final selectedCategory = _chipCategories[_selectedChipIndex]['label'];
+    return _savedLines
+        .where((line) => line['category'] == selectedCategory)
+        .toList();
   }
 }
