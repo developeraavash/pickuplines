@@ -223,37 +223,47 @@ class _ModernLoginPageState extends State<ModernLoginPage> {
                       ),
                     ),
                     const SizedBox(height: 16),
+                    // Add divider with "or" text
+                    Row(
+                      children: [
+                        Expanded(child: Divider(color: Colors.grey[300])),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            'or',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        Expanded(child: Divider(color: Colors.grey[300])),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    
+                    // Guest login button
                     SizedBox(
                       width: double.infinity,
                       height: 48,
-                      child: OutlinedButton(
+                      child: TextButton(
                         onPressed: _isLoading
                             ? null
-                            : () async {
-                                setState(() => _isLoading = true);
-                                try {
-                                  await _authService.signInAnonymously();
-                                  if (!mounted) return;
-                                  Navigator.pushReplacementNamed(context, '/home');
-                                } catch (e) {
-                                  _showErrorSnackBar('Failed to continue as guest');
-                                } finally {
-                                  if (mounted) {
-                                    setState(() => _isLoading = false);
-                                  }
-                                }
+                            : () {
+                                Navigator.pushReplacementNamed(context, '/home');
                               },
-                        style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: Color(0xFF3E7BAB)),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                         child: const Text(
-                          'Continue as Guest',
+                          'Skip Login - Continue as Guest',
                           style: TextStyle(
                             color: Color(0xFF3E7BAB),
-                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),

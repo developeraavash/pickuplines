@@ -91,8 +91,19 @@ class AuthService {
       }
 
       return credential;
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'operation-not-allowed') {
+        throw FirebaseAuthException(
+          code: 'guest-disabled',
+          message: 'Guest login is not enabled. Please sign up or login.',
+        );
+      }
       rethrow;
+    } catch (e) {
+      throw FirebaseAuthException(
+        code: 'unknown',
+        message: 'Failed to continue as guest. Please try again.',
+      );
     }
   }
 
