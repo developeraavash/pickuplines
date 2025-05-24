@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pickuplines/aLoadFunc/upload_data.dart';
 import 'package:pickuplines/core/theme/theme.dart';
 import 'package:pickuplines/core/utils/services/preferences_service.dart';
+import 'package:pickuplines/features/auth/wrapper/auth_wrapper.dart';
 import 'package:pickuplines/l18n/app_localizations.dart';
 import 'package:pickuplines/routes/app_routes.dart';
 import 'package:provider/provider.dart';
@@ -90,7 +91,7 @@ class _FlirtAppState extends State<FlirtApp> {
         ],
         darkTheme: CAppTheme.darkTheme,
         theme: CAppTheme.lightTheme,
-        initialRoute: RouteManger.home,
+        initialRoute: RouteManger.wrapper,
         onGenerateRoute: RouteManger.generateRoute,
         builder: (context, child) {
           return LocaleAndThemeProvider(
