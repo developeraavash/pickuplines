@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pickuplines/core/helpers/THelperFunc.dart';
-import 'package:pickuplines/features/home/screens/home_screen.dart';
-import 'package:pickuplines/features/home/widgets/drawer_items.dart';
+ import 'package:pickuplines/features/home/widgets/drawer_items.dart';
 import 'package:pickuplines/features/favourite/saved_screen.dart';
+import 'package:pickuplines/main_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:pickuplines/l18n/app_localizations.dart';
@@ -65,7 +65,7 @@ class AppDrawer extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  MaterialPageRoute(builder: (context) => const MainScreen()),
                   (route) => false,
                 );
               },

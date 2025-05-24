@@ -48,7 +48,7 @@ class _SavedScreenState extends State<SavedScreen> {
               ? Center(child: Text(t.noSavedLinesYet))
               : SingleChildScrollView(
                 padding: EdgeInsets.only(
-                  top: AppSizes.appBarHeightDetailPadding,
+                  // top: AppSizes.appBarHeightDetailPadding,
                   left: 16,
                   right: 16,
                   bottom: 16,
