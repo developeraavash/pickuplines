@@ -27,6 +27,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get seeAll => 'Ver todo';
 
   @override
+  String get logout => 'Cerrar sesión';
+
+  @override
   String get quotesSection => 'Frases inspiradoras';
 
   @override

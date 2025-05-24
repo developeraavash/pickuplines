@@ -32,14 +32,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => _handleSignOut(context),
-          ),
-        ],
-      ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: AnimatedBottomNavigationBar(
         selectedIndex: _selectedIndex,

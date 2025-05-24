@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pickuplines/core/helpers/THelperFunc.dart';
- import 'package:pickuplines/features/home/widgets/drawer_items.dart';
+import 'package:pickuplines/features/home/widgets/drawer_items.dart';
 import 'package:pickuplines/features/favourite/saved_screen.dart';
 import 'package:pickuplines/main_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:pickuplines/l18n/app_localizations.dart';
 import 'package:pickuplines/flirt_app.dart';
+import 'package:pickuplines/features/auth/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -112,6 +114,56 @@ class AppDrawer extends StatelessWidget {
                   '${t.shareMessage}\nhttps://play.google.com/store/apps/details?id=com.flirt.lines',
                 );
               },
+            ),
+            const Divider(
+              color: Colors.white24,
+              height: 1,
+              indent: 16,
+              endIndent: 16,
+            ),
+            Consumer<AuthService>(
+              builder:
+                  (context, authService, _) => DrawerItem(
+                    icon: Icons.logout,
+                    title: 'Logout',
+                    onTap: () async {
+                      final shouldLogout = await showDialog<bool>(
+                        context: context,
+                        builder:
+                            (context) => AlertDialog(
+                              title: const Text('Logout'),
+                              content: const Text(
+                                'Are you sure you want to logout?',
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed:
+                                      () => Navigator.pop(context, false),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, true),
+                                  child: const Text(
+                                    'Logout',
+                                    style: TextStyle(color: Color(0xFFC2185B)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                      );
+
+                      if (shouldLogout == true && context.mounted) {
+                        await authService.signOut();
+                        if (context.mounted) {
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            '/login',
+                            (route) => false,
+                          );
+                        }
+                      }
+                    },
+                  ),
             ),
           ],
         ),

@@ -17,6 +17,20 @@ class AuthService {
     String password,
   ) async {
     try {
+      if (email.isEmpty || !email.contains('@')) {
+        throw FirebaseAuthException(
+          code: 'invalid-email',
+          message: 'The email address is badly formatted.',
+        );
+      }
+
+      if (password.isEmpty) {
+        throw FirebaseAuthException(
+          code: 'weak-password',
+          message: 'The password is invalid.',
+        );
+      }
+
       final credential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -27,8 +41,13 @@ class AuthService {
       }
 
       return credential;
-    } catch (e) {
+    } on FirebaseAuthException {
       rethrow;
+    } catch (e) {
+      throw FirebaseAuthException(
+        code: 'unknown',
+        message: 'An unexpected error occurred. Please try again.',
+      );
     }
   }
 

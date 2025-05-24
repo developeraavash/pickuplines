@@ -6,7 +6,7 @@ class CurvedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String? subtitle;
   final bool showBackButton;
-  final bool showMenuButton; // <-- Add this
+  final bool showMenuButton;
   final double height;
 
   const CurvedAppBar({

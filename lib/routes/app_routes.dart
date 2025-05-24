@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pickuplines/features/auth/views/login_page.dart';
+import 'package:pickuplines/features/auth/views/signup_page.dart';
 import 'package:pickuplines/features/auth/wrapper/auth_wrapper.dart';
 import 'package:pickuplines/main_screen.dart';
 
@@ -18,6 +19,8 @@ class RouteManger {
         return MaterialPageRoute(builder: (_) => const MainScreen());
       case login:
         return MaterialPageRoute(builder: (_) => const ModernLoginPage());
+      case signup:
+        return MaterialPageRoute(builder: (_) => const SignUpPage());
       default:
         return MaterialPageRoute(builder: (_) => const MainScreen());
     }
