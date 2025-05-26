@@ -19,29 +19,42 @@ class AuthTextField extends StatelessWidget {
     this.onToggleVisibility,
     this.keyboardType = TextInputType.text,
     this.validator,
-    required AnimatedRotation suffixIcon,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
 
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
       validator: validator,
-      style: TextStyle(
-        color: isDarkMode ? Colors.white : Colors.black,
+      style: theme.textTheme.bodyLarge?.copyWith(
+        color: isDarkMode ? Colors.white : Colors.black87,
       ),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(
-          color: isDarkMode ? Colors.white70 : Colors.black54,
+        hintStyle: theme.textTheme.bodyMedium?.copyWith(
+          color: isDarkMode ? Colors.white60 : Colors.black45,
           fontSize: 14,
         ),
         filled: true,
-        fillColor: isDarkMode ? Colors.grey[800] : Colors.grey[200],
+        fillColor: isDarkMode ? const Color(0xFF2C2C2C) : Colors.white,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: isDarkMode ? Colors.grey[700]! : Colors.grey[300]!,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: AppColors.primary,
+            width: 2,
+          ),
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide.none,

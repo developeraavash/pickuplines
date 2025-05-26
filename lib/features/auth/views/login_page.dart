@@ -32,12 +32,12 @@ class _ModernLoginPageState extends State<ModernLoginPage> {
         backgroundColor: Colors.red,
         behavior: SnackBarBehavior.floating,
         margin: const EdgeInsets.all(16),
+        duration: const Duration(seconds: 5),
       ),
     );
   }
 
   Future<void> _handleLogin() async {
-    // Validate form
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -45,51 +45,61 @@ class _ModernLoginPageState extends State<ModernLoginPage> {
     setState(() => _isLoading = true);
 
     try {
-      // Get trimmed values
+      print('==== Starting login process ====');
       final email = _emailController.text.trim();
       final password = _passwordController.text;
 
-      // Attempt login
-      await _authService.signInWithEmailAndPassword(email, password);
+      print('Attempting login for email: $email');
+
+      final credential = await _authService.signInWithEmailAndPassword(email, password);
+
+      print('Received response from auth service');
+
+      if (credential.user == null) {
+        print('Error: No user data in credential');
+        throw FirebaseAuthException(
+          code: 'null-user',
+          message: 'Login failed. Please try again.',
+        );
+      }
+
+      print('Login successful, navigating to home');
 
       if (!mounted) return;
-
-      // Navigate to home on success
       Navigator.pushReplacementNamed(context, '/home');
     } on FirebaseAuthException catch (e) {
+      print('FirebaseAuthException in login: ${e.code}');
+      print('Error message: ${e.message}');
+      
       if (!mounted) return;
 
-      String errorMessage;
-      switch (e.code) {
-        case 'user-not-found':
-          errorMessage = 'No user found with this email address';
-          break;
-        case 'wrong-password':
-          errorMessage = 'Incorrect password';
-          break;
-        case 'invalid-email':
-          errorMessage = 'Please enter a valid email address';
-          break;
-        case 'user-disabled':
-          errorMessage = 'This account has been disabled';
-          break;
-        case 'too-many-requests':
-          errorMessage = 'Too many attempts. Please try again later.';
-          break;
-        case 'network-request-failed':
-          errorMessage = 'Network error. Please check your connection.';
-          break;
-        default:
-          errorMessage = e.message ?? 'Login failed. Please try again.';
-      }
+      String errorMessage = switch (e.code) {
+        'user-not-found' => 'No user found with this email address',
+        'wrong-password' => 'Incorrect password',
+        'invalid-email' => 'Please enter a valid email address',
+        'user-disabled' => 'This account has been disabled',
+        'too-many-requests' => 'Too many attempts. Please try again later',
+        'network-request-failed' => 'Network error. Please check your connection',
+        'not-initialized' => 'Please restart the app and try again',
+        'auth-init-failed' => 'Authentication service error. Please restart the app',
+        'timeout' => 'Login request timed out. Please try again',
+        'null-user' => 'Login failed. Please try again',
+        _ => e.message ?? 'An unexpected error occurred. Please try again',
+      };
+      
       _showErrorSnackBar(errorMessage);
-    } catch (e) {
+    } catch (e, stack) {
+      print('Unexpected error in login:');
+      print('Error: $e');
+      print('Stack trace: $stack');
+      
       if (!mounted) return;
-      _showErrorSnackBar('An unexpected error occurred. Please try again.');
+      _showErrorSnackBar('An unexpected error occurred. Please try again later.');
     } finally {
       if (mounted) {
         setState(() => _isLoading = false);
       }
+      print('==== Login process completed ====');
     }
   }
 

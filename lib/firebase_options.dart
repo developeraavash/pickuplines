@@ -56,6 +56,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '311959562953',
     projectId: 'flirt-lines',
     storageBucket: 'flirt-lines.firebasestorage.app',
+    authDomain: 'flirt-lines.firebaseapp.com',
+    androidClientId: '311959562953-sample.apps.googleusercontent.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
